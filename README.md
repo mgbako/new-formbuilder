@@ -239,7 +239,7 @@ $ npm run build
 
 * Results are put in the dist folder.
 
-## <a name="test"></a> Running Tests Locally
+## Running Tests Locally
 
 To run tests:
 
@@ -258,7 +258,7 @@ All the tests are executed on our Continuous Integration infrastructure and a PR
 - CircleCI fails if your code is not formatted properly,
 - Travis CI fails if any of the test suites described above fails.
 
-## <a name="clang-format"></a> Formatting your source code
+## Formatting your source code
 
 The Application uses eslint to format the source code. If the source code
 is not properly formatted, the CI will fail and the PR can not be merged.

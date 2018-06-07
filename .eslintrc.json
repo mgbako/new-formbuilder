@@ -5,6 +5,8 @@
   },
   "extends": ["airbnb"],
   "rules": {
-    "indent": [2, 2]
+    "indent": [2, 2],
+    "no-console": false,
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }]
   }
 }

@@ -14,7 +14,7 @@
     "eject": "react-scripts eject",
     "commit": "git-cz",
     "lint": "eslint src",
-    "precommit": "npm run lint",
+    "precommit": "npm run lint && CI=true npm test",
     "prepush": "npm run lint &&  CI=true npm test"
   },
   "devDependencies": {

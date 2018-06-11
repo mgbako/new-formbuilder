@@ -1,6 +1,6 @@
 # Building and Testing Business Service
 
-This document describes how to set up your development environment to contribute to the business service.
+This document describes how to set up your development environment to contribute to **swyp business frontend service**.
 It also explains the basic mechanics of using `git`, `node`, and `npm`.
 
 * [Prerequisite Software](#prerequisite-software)
@@ -29,8 +29,8 @@ following products on your development machine:
 Fork and clone the application repository:
 
 1. Login to your bitbucket account and fork the application
-3. Clone your fork of the application repository and define an `upstream` remote pointing back to
-   the application repository that you forked in the first place.
+2. Clone your fork of the application repository to your local system and define an `upstream` remote pointing back to
+   the main application repository that you forked from in the first place.
 
 ```shell
 # Clone your GitHub repository:
@@ -56,7 +56,7 @@ Before you submit your Pull Request (PR) consider the following guidelines:
 1. Make your changes in a new git branch:
 
      ```shell
-     git checkout -b new-feature master
+     git checkout -b new-feature-name-goes-here develop
      ```
 
 2. Code the functionality or create your patch, **including appropriate test cases**.
@@ -76,14 +76,14 @@ Before you submit your Pull Request (PR) consider the following guidelines:
     git push origin 
     ```
 
-7. In bitbucket, send a pull request to `angular:master`.
+7. In bitbucket, send a pull request to `business-frontend-service:develop`.
 * If we suggest changes then:
   * Make the required updates.
   * Re-run the whole test suites to ensure tests are still passing.
   * Rebase your branch and force push to your GitHub repository (this will update your Pull Request):
 
     ```shell
-    git rebase master -i
+    git rebase develop -i
     git push -f
     ```
 
@@ -97,25 +97,25 @@ from the main (upstream) repository:
 * Delete the remote branch on GitHub either through the GitHub web UI or your local shell as follows:
 
     ```shell
-    git push origin --delete new-feature
+    git push origin --delete new-feature-name-goes-here
     ```
 
-* Check out the master branch:
+* Check out the develop branch:
 
     ```shell
-    git checkout master -f
+    git checkout develop -f
     ```
 
 * Delete the local branch:
 
     ```shell
-    git branch -D new-feature
+    git branch -D new-feature-name-goes-here
     ```
 
-* Update your master with the latest upstream version:
+* Update your develop with the latest upstream version:
 
     ```shell
-    git pull --ff upstream master
+    git pull --ff upstream develop
     ```
 
 ## Coding Rules
@@ -123,7 +123,7 @@ To ensure consistency throughout the source code, keep these rules in mind as yo
 
 * All features or bug fixes **must be tested** by one or more specs (unit-tests).
 * All public API methods **must be documented**. (Details TBC).
-* We follow [AirBnb][js-style-guide], but wrap all code at
+* We follow [AirBnb js-style-guide](https://github.com/airbnb/javascript), but wrap all code at
   **100 characters**. An automated formatter is available, see
   [DEVELOPER.md](docs/DEVELOPER.md#clang-format).
 
@@ -180,27 +180,8 @@ Must be one of the following:
 * **test**: Adding missing tests or correcting existing tests
 
 ### Scope
-The scope should be the name of the npm package affected (as perceived by the person reading the changelog generated from commit messages.
+The scope should be the name of the file(s) affected (as perceived by the person reading the changelog generated from commit messages.
 
-The following is the list of supported scopes:
-
-* **animations**
-* **common**
-* **compiler**
-* **compiler-cli**
-* **core**
-* **elements**
-* **forms**
-* **http**
-* **language-service**
-* **platform-browser**
-* **platform-browser-dynamic**
-* **platform-server**
-* **platform-webworker**
-* **platform-webworker-dynamic**
-* **router**
-* **service-worker**
-* **upgrade**
 
 There are currently a few exceptions to the rule:
 * **changelog**: used for updating the release notes in CHANGELOG.md
@@ -266,7 +247,7 @@ is not properly formatted, the CI will fail and the PR can not be merged.
 You can automatically format your code by running:
 
 ``` shell
-$ 
+$ npm run watch-debug
 ```
 
 ## Linting/verifying your source code
@@ -274,7 +255,7 @@ $
 You can check that your code is properly formatted and adheres to coding style by running:
 
 ``` shell
-$ npm run watch-debug
+$ ThankGod what command should i run here please?
 ```
 
 

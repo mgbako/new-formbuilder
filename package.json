@@ -3,8 +3,21 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "axios": "^0.18.0",
+    "bootstrap-daterangepicker": "^3.0.3",
+    "chart.js": "^2.7.2",
+    "feather-icons": "^4.7.3",
+    "feather-icons-react": "^0.2.0",
+    "font-picker-react": "^2.0.3",
+    "jquery": "^3.3.1",
+    "moment": "^2.22.2",
+    "prop-types": "^15.6.2",
     "react": "^16.4.0",
+    "react-bootstrap-daterangepicker": "^4.1.0",
+    "react-chartjs-2": "^2.7.2",
+    "react-color": "^2.14.1",
     "react-dom": "^16.4.0",
+    "react-router-dom": "^4.3.1",
     "react-scripts": "1.1.4"
   },
   "scripts": {
@@ -13,9 +26,7 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "commit": "git-cz",
-    "lint": "eslint src",
-    "precommit": "npm run lint && CI=true npm test",
-    "prepush": "npm run lint &&  CI=true npm test"
+    "lint": "eslint src"
   },
   "devDependencies": {
     "cz-conventional-changelog": "^2.1.0",
@@ -33,5 +44,9 @@
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
     }
+  },
+  "toBeFixed": {
+    "precommitee": "npm run lint && CI=true npm test",
+    "prepushee": "npm run lint &&  CI=true npm test"
   }
 }

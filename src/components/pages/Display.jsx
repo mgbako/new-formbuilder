@@ -9,9 +9,9 @@ const Display = (props) => (
     </div>
   )
 
-export default Display;
 
-Display.PropTypes = {
+Display.propTypes = {
   label: PropTypes.string,
   displayInputElement: PropTypes.array
 };
+export default Display;

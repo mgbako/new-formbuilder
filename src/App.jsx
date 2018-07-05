@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { Component } from 'react';
+import {Provider} from 'react-redux';
 import {
   BrowserRouter as Router,
   Route,
@@ -7,6 +8,7 @@ import {
   Redirect
 
 } from 'react-router-dom';
+import axios from 'axios';
 
 
 
@@ -19,9 +21,44 @@ import Signup from './components/pages/Signup';
 import Login from './components/pages/Login';
 import Dashboard from './components/pages/Dashboard';
 import Forms from './components/pages/Forms';
+import Overview from './components/pages/Overview';
+import Request_Password_Reset_Token from './components/pages/Request_Password_Reset_Token';
+import Reset_password from './components/pages/Reset_password';
+
 import ScrollToTop from './components/ScrollToTop';
 
-const App = () => (
+import store from './store'
+
+axios.defaults.headers.common['Authorization'] = window.sessionStorage.token;
+axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
+
+const PrivateRoute = ({component: Component, ...rest}) =>(
+< Route {...rest} render={(props) => (
+
+window.sessionStorage.token !== undefined
+ ? <Component {...props} /> :
+<Redirect to="/" />
+)} />
+
+)
+class App extends Component {
+  constructor(props) {
+      super()
+
+    }
+
+
+
+
+
+  componentDidMount() {
+
+
+  }
+
+  render() {
+    return (
+      <Provider store={store}>
   <div>
   <Router>
         <div>
@@ -34,9 +71,12 @@ const App = () => (
 
        < Route exact path="/signup" component={Signup} />
        < Route exact path="/" component={Login}  />
-       < Route exact path="/create" component={Create} />
-       < Route exact path="/dashboard" component={Dashboard} />
-       < Route exact path="/forms" component={Forms} />
+       < Route exact path="/request_password_reset_token" component={Request_Password_Reset_Token}  />
+       < Route exact path="/reset_password" component={Reset_password}  />
+       < PrivateRoute exact path="/create" component={Create} />
+       < PrivateRoute exact path="/dashboard" component={Dashboard} />
+       < PrivateRoute exact path="/forms" component={Forms} />
+       < PrivateRoute exact path="/overview" component={Overview} />
 
        </Switch>
 
@@ -48,6 +88,8 @@ const App = () => (
 
         </Router>
   </div>
+  </Provider>
 );
-
+}
+}
 export default App;

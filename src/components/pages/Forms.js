@@ -1,9 +1,128 @@
 import React, { Component } from 'react';
 import FeatherIcon from 'feather-icons-react';
+import axios from 'axios';
+import { connect } from 'react-redux';
+import {fetchWorkspaces, getFormIdAndTitle, fetchWorkspaceForm} from '../../actions/workspaceActions'
+import {
+  Link,
+  Redirect
 
+} from 'react-router-dom';
+import PropTypes from 'prop-types';
+import createHistory from 'history/createBrowserHistory';
 
+const history = createHistory();
+const businessId = window.localStorage._id;
 
 class Forms extends Component {
+  constructor(props) {
+       super()
+    this.state = {
+      workspaceForms: [],
+      name: '',
+      password: '',
+      workspaceName:'',
+      workspaceId:'',
+      formTitle: ''
+    }
+    this.getWorkspaceForms =this.getWorkspaceForms.bind(this);
+this.onChangeFunc = this.onChangeFunc.bind(this)
+    }
+
+onChangeFunc(e){
+  this.setState({ [e.target.name]: e.target.value });
+}
+
+disableForm = (e) => {
+  e.preventDefault();
+if(window.confirm('Are you sure you want to disable this form?')){
+  axios.put(`http://swyp-business-backend-service.herokuapp.com/api/v1/forms/disable/${e.target.id}`)
+
+}
+
+}
+
+deleteForm = (e) => {
+  e.preventDefault();
+if(window.confirm('Are you sure you want to delete this form?')){
+  axios.delete(`http://swyp-business-backend-service.herokuapp.com/api/v1/forms/${e.target.id}`)
+}
+}
+
+
+    getWorkspaceForms(e) {
+let workspaceName = e.target.value;
+let workspaceId = e.target.id;
+this.setState({ workspaceName: workspaceName, workspaceId: workspaceId});
+
+this.props.fetchWorkspaceForm(this.state.workspaceId)
+console.log(this.props.fetchWorkspaceForm(this.state.workspaceId))
+
+    }
+
+
+      deleteWorkspace = (e) => {
+        e.preventDefault();
+        if(this.state.workspaceName){
+if(window.confirm('Are you sure you want to delete this Workspace?')){
+        axios.delete(`http://swyp-business-backend-service.herokuapp.com/api/v1/workspaces/${this.state.workspaceId}`)
+        .then(res => {
+          let workspaceName = '';
+          this.setState({ workspaceName});
+
+        });
+}
+}
+else {
+  alert("no workspace selected")
+}
+}
+
+  addWorkspace = (e) => {
+    this.setState({ name: e.target.value});
+  }
+
+  submitWorkspace= (e) => {
+  e.preventDefault();
+
+
+  axios.post(`http://swyp-business-backend-service.herokuapp.com/api/v1/workspaces`, {
+    name: this.state.name,
+    business: businessId
+   })
+    .then(res => {
+      console.log(res);
+      console.log(res.data);
+    })
+  }
+
+newForm =(e) => {
+if (this.menu.value && this.state.formTitle)
+{
+  //alert("hi"+ " " +this.menu.value + " " +this.state.formTitle)
+const createFormData = {
+  id: this.menu.value,
+  title: this.state.formTitle
+};
+
+  this.props.getFormIdAndTitle(createFormData);
+
+  this.props.history.push("/create");
+
+}
+else {
+  alert("please input required fields")
+}
+
+}
+
+componentWillMount(){
+
+  this.props.fetchWorkspaces(businessId);
+  console.log(this.props.fetchWorkspaces());
+
+}
+
   render() {
     return (
 
@@ -12,93 +131,44 @@ class Forms extends Component {
       <div className="container-fluid">
             <div className="row">
               <nav className="col-md-2 d-none d-md-block bg-light sidebar">
-                <div className="sidebar-sticky">
-                  <ul className="nav flex-column">
-                    <li className="nav-item">
-                      <a className="nav-link active" href="#">
-               <FeatherIcon icon="home" size="24" className="icon" />
+                <div className="sidebar-sticky workstation">
+<p> Workspaces<span className="float-right"> <FeatherIcon icon="plus" size="18" className="workstation-icon" data-toggle="modal" data-target="#newWorkstation" /> <FeatherIcon icon="search" size="18" className="workstation-icon" /></span></p>
+<div className="space1"/>
 
-                        Dashboard <span className="sr-only">(current)</span>
-                      </a>
-                    </li>
+ <div className= "workspace-panel">
+
+{this.props.workspaces.map(data =>
+       <input type="text"  spellcheck="false" id={data._id} value={data.name} onClick={this.getWorkspaceForms} readonly/>
 
 
-                    <li className="nav-item">
-                      <a className="nav-link" href="#">
-                      <FeatherIcon icon="users" size="24" className="icon" />
-                        Manage Users
-                      </a>
-                    </li>
-                    <li className="nav-item">
-                      <a className="nav-link" href="#">
-                      <FeatherIcon icon="bar-chart-2" size="24" className="icon" />
-                        Overview
-                      </a>
-                    </li>
-                    <li className="nav-item">
-                      <a className="nav-link" href="#">
-                      <FeatherIcon icon="file-text" size="24" className="icon" />
-                        Forms
-                      </a>
-                    </li>
-                    <li className="nav-item">
-                      <a className="nav-link" href="#">
-                      <FeatherIcon icon="file-text" size="24" className="icon" />
-                        Templates
-                      </a>
-                    </li>
-                  </ul>
+)}
 
+ </div>
             </div>
               </nav>
 
               <main id="main" className="col-md-9 ml-sm-auto col-lg-10 px-4">
               <div className="space1" />
-<h3>Forms<span className="float-right"><button type="button" className="btn bg-secondary btn-md text-light"><FeatherIcon icon="plus" size="18" className="icon1" />
+<h3>{this.state.workspaceName} <span className="float-right"> <button type="button" className="btn bg-secondary btn-md text-light" data-toggle="modal" data-target="#form-title"><FeatherIcon icon="plus" size="18" className="icon1" />
  New Form</button>
  </span></h3>
+ <div><FeatherIcon icon="trash-2" size="24" className="writeIcon" onClick={this.deleteWorkspace}/></div>
 
 <div className="space5"/>
 
-<div class="row">
-  <div class="col-sm-2">
-    <div class="card form-space shadow-sm">
-      <div class="card-body">
-        <h5 class="card-title"> Dormant Account Reactivation</h5>
-      </div>
-<div class="card-footer text-muted">     no responses
-  </div>
-    </div>
-  </div>
-  <div class="col-sm-2">
-    <div class="card form-space shadow-sm">
-      <div class="card-body">
-        <h5 class="card-title">Account Update</h5>
-      </div>
-<div class="card-footer text-muted">     no responses
-  </div>
-    </div>
-  </div>
+<div className="row">
 
-  <div class="col-sm-2">
-    <div class="card form-space shadow-sm">
-      <div class="card-body">
-        <h5 class="card-title">Prepaid Card Request</h5>
-      </div>
-<div class="card-footer text-muted">     no responses
-  </div>
-    </div>
-  </div>
+{this.props.workspaceForms.map(form =>
 
-  <div class="col-sm-2">
-    <div class="card form-space shadow-sm">
-      <div class="card-body">
-        <h5 class="card-title">Internet and Online Banking</h5>
-      </div>
-<div class="card-footer text-muted">     no responses
+<div className="col-sm-2 workspaceForm shadow" >
+<div className="edit"><a href="#"><FeatherIcon icon="slash" size="24" className="noteIcon" id={form._id} onClick={this.disableForm}/></a> <a href="#"><FeatherIcon icon="trash-2" size="24" className="writeIcon"  id={form._id} onClick={this.deleteForm}/></a></div>
+
+<div className="vertical-align">
+<p>{form.name}</p>
+</div>
+
   </div>
-    </div>
-  </div>
+)}
 
 </div>
 
@@ -107,13 +177,88 @@ class Forms extends Component {
             </div>
           </div>
 
+          {/* add workstation modal starts */}
+          <div className="modal fade" id="newWorkstation">
+             <div className="modal-dialog modal-dialog-centered">
+               <div className="modal-content">
+
+                 <div className="modal-header">
+                   <h4 className="modal-title">Add a new Workspace</h4>
+                   <button type="button" className="close" data-dismiss="modal">&times;</button>
+                 </div>
+
+                 <div className="modal-body">
+                 <form>
+
+
+                  <input type="text" id="inputName" className="form-control" placeholder="Name your new workstation" required autofocus onChange={this.addWorkspace} />
+ <div className="space2"/>
+               <button className="btn btn-lg btn-secondary float-right" type="submit" onClick={this.submitWorkspace}  data-dismiss="modal">Submit</button>
+                 </form>
+                   </div>
 
 
 
+               </div>
+             </div>
+           </div>
+           {/* add workstation modal ends */}
 
+
+           {/* add form modal starts */}
+           <div className="modal fade" id="form-title">
+              <div className="modal-dialog modal-dialog-centered">
+                <div className="modal-content">
+
+                  <div className="modal-header">
+                    <button type="button" className="close" data-dismiss="modal">&times;</button>
+                  </div>
+
+                  <div className="modal-body">
+                  <form>
+                  <div class="form-group">
+      <label for="sel1">Select Workspace:</label>
+      <select class="form-control" ref = {(input)=> this.menu = input}>
+      {this.props.workspaces.map(data =>
+
+             <option value={data._id}>{data.name}</option>
+
+        )}
+
+
+
+      </select>
+</div>
+                   <input type="text" name="formTitle" className="form-control" placeholder="Form title" required onChange={this.onChangeFunc} />
+           <div className="space2"/>
+                <button className="btn btn-lg btn-secondary float-right" type="submit" onClick={this.newForm}  data-dismiss="modal">Submit</button>
+                  </form>
+                    </div>
+
+
+
+                </div>
+              </div>
+            </div>
+            {/* add form modal ends */}
       </div>
     );
   }
 }
 
-export default Forms;
+Forms.propTypes = {
+  fetchWorkspaces: PropTypes.func.isRequired,
+  workspaces: PropTypes.array.isRequired,
+getFormIdAndTitle: PropTypes.func.isRequired,
+workspaceForms: PropTypes.array.isRequired,
+fetchWorkspaceForm: PropTypes.func.isRequired
+}
+
+
+const mapStateToProps = state  => ({
+  workspaces: state.workspaces.items,
+  workspaceForms: state.workspaces.workspaceForms
+
+})
+
+export default connect(mapStateToProps, {fetchWorkspaces, getFormIdAndTitle, fetchWorkspaceForm})(Forms);

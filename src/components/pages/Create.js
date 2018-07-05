@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import axios from 'axios';
+import { connect } from 'react-redux';
 import { SketchPicker,  CompactPicker} from 'react-color';
 import FontPicker from 'font-picker-react';
 import {
@@ -13,6 +14,8 @@ import {
 
 } from 'react-router-dom';
 import Display from './Display';
+import {getFormIdAndTitle} from '../../actions/workspaceActions';
+
 
 let uniqueId = 1;
 
@@ -36,9 +39,12 @@ background:'#fff',
 font_color:'#333',
 activeFont: 'Open Sans',
 font_size:'13px',
+formTitle:'',
+workspaceId: ''
     };
 
 this.shortText = this.shortText.bind(this);
+this.sectionTitle = this.sectionTitle.bind(this);
 this.longText = this.longText.bind(this);
 this.email = this.email.bind(this);
 this.number = this.number.bind(this);
@@ -51,6 +57,8 @@ this.handleRadioInputChange = this.handleRadioInputChange.bind(this);
 this.colorSetting = this.colorSetting.bind(this);
 this.fontColorSetting = this.fontColorSetting.bind(this);
 this.fontSizeSetting = this.fontSizeSetting.bind(this);
+this.SaveForm = this.SaveForm.bind(this);
+
 }
 
 
@@ -93,7 +101,14 @@ handleRadioInputChange(e) {
 const choice_option = e.target.value;
 }
 
-
+onChangeFunc(e){
+      let id = e.target.id;
+      this.setState({input:this.state.input});
+let selectedInput = this.state.input[id];
+selectedInput.label = <h3 className="section-title">{e.target.value}</h3>;
+this.state.input[id] = selectedInput;
+this.setState({input:this.state.input});
+};
 
   shortText(){
 
@@ -109,6 +124,20 @@ const choice_option = e.target.value;
 
 
    }
+   sectionTitle(){
+
+      const input = this.state.input;
+      const item = <input type="text"  name="title" placeholder="Enter text here" id={uniqueId++} className="InputDiv form-control" onChange={this.onChangeFunc.bind(this)}/>
+    const displayInputElement = <h3></h3>;;
+    const label = "";
+   const id = uniqueId;
+    this.setState({input : input.concat({item, label, displayInputElement, id})});
+    console.log(this.state.input)
+
+
+
+
+    }
 
    longText(){
 
@@ -200,6 +229,30 @@ const choice_option = e.target.value;
         console.log(this.state.input)
         }
 
+        SaveForm(e) {
+          const elmnt = document.getElementsByTagName("FORM")[0];
+          axios.post(`http://swyp-business-backend-service.herokuapp.com/api/v1/forms
+`,{
+                  content: elmnt.outerHTML,
+                  name: this.state.formTitle,
+                  workspace: this.state.workspaceId
+
+                }).then(res => {
+                  console.log(res.data)
+                  })
+
+        }
+
+        componentWillMount(){
+
+          this.props.getFormIdAndTitle();
+          const formTitle = this.props.createFormData.title;
+          const workspaceId = this.props.createFormData.id;
+          this.setState({ formTitle: formTitle, workspaceId: workspaceId });
+          console.log(formTitle);
+
+        }
+
   render() {
     const backgroundColorPicker = <SketchPicker color={this.state.background} onChangeComplete={this.handleBackgroundColorChange}/>;
     const fontColorPicker = <CompactPicker color={this.state.background} onChangeComplete={this.handleFontColorChange}/>;
@@ -210,10 +263,9 @@ const choice_option = e.target.value;
       fontFamily: this.state.activeFont,
       color: this.state.font_color
     };
-
     return (<div>
       <div className="topMenu">
-        <button className="btn btn-info float-right" type="button">
+        <button className="btn btn-info float-right" type="button" onClick={this.SaveForm}>
         Save
         </button>
       </div>
@@ -242,9 +294,11 @@ const choice_option = e.target.value;
                   <div className="card bg-light text-dark">
                     <div className="card-body">Welcome Screen</div>
                   </div>
-
                   <div className="card bg-light text-dark">
                     <div className="card-body" onClick={this.shortText}>Short Text</div>
+                  </div>
+                  <div className="card bg-light text-dark">
+                    <div className="card-body" onClick={this.sectionTitle}>Section Title</div>
                   </div>
 
 <div className="card bg-light text-dark">
@@ -348,5 +402,14 @@ const choice_option = e.target.value;
   }
 }
 
+Create.propTypes = {
+  getFormIdAndTitle: PropTypes.func.isRequired
 
-export default Create;
+}
+
+
+const mapStateToProps = state  => ({
+  createFormData: state.workspaces.createFormData
+})
+
+export default connect(mapStateToProps, {getFormIdAndTitle})(Create);

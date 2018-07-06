@@ -1,14 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Display = (props) => (
-    <div>
-      <div> {props.label}</div>
+const Display = props => (
+  <div>
+    <div> {props.label}</div>
 
-      <div> {props.displayInputElement}</div>
-    </div>
-  )
-
+    <div> {props.displayInputElement}</div>
+  </div>
+);
 
 Display.propTypes = {
   label: PropTypes.string,

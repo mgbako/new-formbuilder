@@ -2,16 +2,20 @@
   "name": "swyp-business-frontend-service",
   "version": "0.1.0",
   "private": true,
+  "lint-staged": {
+    "src/**/*.{js,jsx,json,css}": [
+      "prettier --single-quote --write",
+      "git add"
+    ]
+  },
   "scripts": {
     "start": "react-scripts start",
-    "build": "npm run lint && npm run test && react-scripts build",
+    "build": "lint-staged && yarn test && react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "precommitee": "npm run lint && CI=true npm test",
-    "prepushee": "npm run lint &&  CI=true npm test",
+    "precommitee": "lint-staged && CI=true yarn test",
+    "prepushee": "lint-staged && CI=true yarn test",
     "eject": "react-scripts eject",
-    "commit": "git-cz",
-    "lint": "eslint src",
-    "format": "eslint src --fix"
+    "commit": "git-cz"
   },
   "devDependencies": {
     "axios": "^0.18.0",
@@ -20,12 +24,16 @@
     "carbon-components-react": "^6.6.3",
     "carbon-icons": "^7.0.7",
     "chart.js": "^2.7.2",
+    "cz-conventional-changelog": "^2.1.0",
     "feather-icons": "^4.7.3",
     "feather-icons-react": "^0.2.0",
     "font-picker-react": "^2.0.3",
     "history": "^4.7.2",
+    "husky": "^0.14.3",
     "jquery": "^3.3.1",
+    "lint-staged": "^7.2.0",
     "moment": "^2.22.2",
+    "prettier": "^1.13.7",
     "prop-types": "^15.6.2",
     "react": "^16.4.0",
     "react-bootstrap-daterangepicker": "^4.1.0",
@@ -38,9 +46,7 @@
     "react-router-dom": "^4.3.1",
     "react-scripts": "1.1.4",
     "redux": "^4.0.0",
-    "redux-thunk": "^2.3.0",
-    "cz-conventional-changelog": "^2.1.0",
-    "husky": "^0.14.3"
+    "redux-thunk": "^2.3.0"
   },
   "config": {
     "commitizen": {

@@ -249,7 +249,7 @@ this.setState({input:this.state.input});
           const formTitle = this.props.createFormData.title;
           const workspaceId = this.props.createFormData.id;
           this.setState({ formTitle: formTitle, workspaceId: workspaceId });
-          console.log(formTitle);
+          console.log(this.props);
 
         }
 

@@ -43,6 +43,7 @@ class Dashboard extends Component {
 getFormId = (e) => {
 
   this.setState({ formId: e.target.id });
+  alert(this.state.formId);
 
 }
 
@@ -224,7 +225,7 @@ getFormId = (e) => {
                       </tr>
                     </thead>
                     <tbody>
-                      {this.state.pending .map(pending =>
+                      {this.state.pending.map(pending =>
                       <tr>
                         <td>{pending.form.name}</td>
                         <td>{pending.respondant.lastname + " " + pending.respondant.firstname} </td>

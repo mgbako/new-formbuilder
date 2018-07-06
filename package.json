@@ -24,9 +24,12 @@
     "start": "react-scripts start",
     "build": "npm run lint && npm run test && react-scripts build",
     "test": "react-scripts test --env=jsdom",
+    "precommitee": "npm run lint && CI=true npm test",
+    "prepushee": "npm run lint &&  CI=true npm test",
     "eject": "react-scripts eject",
     "commit": "git-cz",
-    "lint": "eslint src"
+    "lint": "eslint src",
+    "format": "eslint src --fix"
   },
   "devDependencies": {
     "cz-conventional-changelog": "^2.1.0",
@@ -44,9 +47,5 @@
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
     }
-  },
-  "toBeFixed": {
-    "precommitee": "npm run lint && CI=true npm test",
-    "prepushee": "npm run lint &&  CI=true npm test"
   }
 }

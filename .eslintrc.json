@@ -2,17 +2,5 @@
   "env": {
     "browser": true,
     "jest": true
-  },
-  "extends": ["airbnb"],
-  "rules": {
-    "indent": [2, 2],
-    "no-console": 0,
-    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }]
-  },
-    "parserOptions": {
-        "ecmaFeatures": {
-            "jsx": true
-        }
-    }
-
+  }
 }

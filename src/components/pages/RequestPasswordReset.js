@@ -1,13 +1,14 @@
-import React, { Component } from 'react';
-import axios from 'axios';
+import React, { Component } from "react";
+import axios from "axios";
 
-class Reset_password extends Component {
+class Request_Password_Reset_Token extends Component {
   state = {
-    password: ''
+    email: "",
+    message: ""
   };
 
-  handlePasswordChange = e => {
-    this.setState({ password: e.target.value });
+  handleEmailChange = e => {
+    this.setState({ email: e.target.value });
   };
 
   handleSubmit = e => {
@@ -15,11 +16,10 @@ class Reset_password extends Component {
 
     axios
       .post(
-        `http://swyp-business-backend-service.herokuapp.com/api/v1/businesses/resetpassword`,
+        `http://swyp-business-backend-service.herokuapp.com/api/v1/businesses/requestpasswordrest`,
         {
-          password: this.state.password,
-          email: '',
-          token: ''
+          origin: window.location.origin,
+          email: this.state.email
         }
       )
       .then(res => {
@@ -35,17 +35,18 @@ class Reset_password extends Component {
 
         <form className="form-signin card" onSubmit={this.handleSubmit}>
           <div className="card-body">
-            <h1 className="h3 mb-3 font-weight-normal">
-              Please choose your new password:
-            </h1>
+            <p>
+              Please fill out your email. A link to reset password will be sent
+              there.
+            </p>
             <input
               type="text"
               id="inputEmail"
               className="form-control"
-              placeholder="New Password"
+              placeholder="email"
               required
               autoFocus
-              onChange={this.handlePasswordChange}
+              onChange={this.handleEmailChange}
             />
 
             <button className="btn btn-lg btn-primary btn-block" type="submit">
@@ -59,4 +60,4 @@ class Reset_password extends Component {
   }
 }
 
-export default Reset_password;
+export default Request_Password_Reset_Token;

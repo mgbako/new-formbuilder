@@ -1,33 +1,32 @@
-import React, { Component } from 'react';
-import { Provider } from 'react-redux';
+import React, { Component } from "react";
+import { Provider } from "react-redux";
 import {
   BrowserRouter as Router,
   Route,
-  Link,
   Switch,
   Redirect
-} from 'react-router-dom';
-import axios from 'axios';
+} from "react-router-dom";
+import axios from "axios";
 
-import './App.css';
-import Header from './components/header/Header';
-import Footer from './components/footer/Footer';
-import Create from './components/pages/Create';
-import Signup from './components/pages/Signup';
-import Login from './components/pages/Login';
-import Dashboard from './components/pages/Dashboard';
-import Forms from './components/pages/Forms';
-import Overview from './components/pages/Overview';
-import Request_Password_Reset_Token from './components/pages/Request_Password_Reset_Token';
-import Reset_password from './components/pages/Reset_password';
+import "./App.css";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
+import Create from "./components/pages/Create";
+import Signup from "./components/pages/Signup";
+import Login from "./components/pages/Login";
+import Dashboard from "./components/pages/Dashboard";
+import Forms from "./components/pages/Forms";
+import Overview from "./components/pages/Overview";
+import Request_Password_Reset_Token from "./components/pages/RequestPasswordReset";
+import Reset_password from "./components/pages/ResetPassword";
 
-import ScrollToTop from './components/ScrollToTop';
+import ScrollToTop from "./components/ScrollToTop";
 
-import store from './store';
+import store from "./store";
 
-axios.defaults.headers.common['Authorization'] = window.sessionStorage.token;
-axios.defaults.headers.post['Content-Type'] =
-  'application/x-www-form-urlencoded';
+axios.defaults.headers.common["Authorization"] = "token";
+axios.defaults.headers.post["Content-Type"] =
+  "application/x-www-form-urlencoded";
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
   <Route
@@ -41,13 +40,8 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
     }
   />
 );
+
 class App extends Component {
-  constructor(props) {
-    super();
-  }
-
-  componentDidMount() {}
-
   render() {
     return (
       <Provider store={store}>

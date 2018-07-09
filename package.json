@@ -2,18 +2,12 @@
   "name": "swyp-business-frontend-service",
   "version": "0.1.0",
   "private": true,
-  "lint-staged": {
-    "src/**/*.{js,jsx,json,css}": [
-      "prettier --single-quote --write",
-      "git add"
-    ]
-  },
   "scripts": {
     "start": "react-scripts start",
     "build": "lint-staged && yarn test && react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "precommitee": "lint-staged && CI=true yarn test",
-    "prepushee": "lint-staged && CI=true yarn test",
+    "precommit": "lint-staged && CI=true yarn test",
+    "prepush": "lint-staged && CI=true yarn test",
     "eject": "react-scripts eject",
     "commit": "git-cz"
   },
@@ -25,6 +19,8 @@
     "carbon-icons": "^7.0.7",
     "chart.js": "^2.7.2",
     "cz-conventional-changelog": "^2.1.0",
+    "eslint-config-prettier": "^2.9.0",
+    "eslint-plugin-prettier": "^2.6.2",
     "feather-icons": "^4.7.3",
     "feather-icons-react": "^0.2.0",
     "font-picker-react": "^2.0.3",
@@ -52,5 +48,11 @@
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
     }
+  },
+  "lint-staged": {
+    "src/**/*.{js,jsx,json,css}": [
+      "prettier --write",
+      "git add"
+    ]
   }
 }

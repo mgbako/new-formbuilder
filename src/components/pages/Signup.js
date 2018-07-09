@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
-import axios from 'axios';
+import React, { Component } from "react";
+import axios from "axios";
 
 class Signup extends Component {
   state = {
-    name: '',
-    logoUrl: ''
+    name: "",
+    logoUrl: ""
   };
 
   handleNameChange = e => {
@@ -24,7 +24,7 @@ class Signup extends Component {
         {
           logoUrl: this.state.logoUrl,
           name: this.state.name,
-          account: ''
+          account: ""
         }
       )
       .then(res => {

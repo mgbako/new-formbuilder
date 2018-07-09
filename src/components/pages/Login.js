@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-import axios from 'axios';
-import createHistory from 'history/createBrowserHistory';
+import React, { Component } from "react";
+import axios from "axios";
+import createHistory from "history/createBrowserHistory";
 
 const history = createHistory();
 
@@ -8,8 +8,8 @@ class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: '',
-      password: ''
+      email: "",
+      password: ""
     };
     this.handleInputChange = this.handleInputChange.bind(this);
   }
@@ -34,7 +34,7 @@ class Login extends Component {
         window.sessionStorage.token = res.data.token;
         window.sessionStorage._id = res.data.business._id;
         if (res.data.token !== undefined) {
-          this.props.history.push('/dashboard');
+          this.props.history.push("/dashboard");
           console.log(window.sessionStorage.all);
         }
       })

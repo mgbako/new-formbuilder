@@ -1,12 +1,12 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import axios from 'axios';
-import { connect } from 'react-redux';
-import { SketchPicker, CompactPicker } from 'react-color';
-import FontPicker from 'font-picker-react';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import axios from "axios";
+import { connect } from "react-redux";
+import { SketchPicker, CompactPicker } from "react-color";
+import FontPicker from "font-picker-react";
 
-import Display from './Display';
-import { getFormIdAndTitle } from '../../actions/workspaceActions';
+import Display from "./Display";
+import { getFormIdAndTitle } from "../../actions/workspaceActions";
 
 let uniqueId = 1;
 
@@ -18,21 +18,21 @@ class Create extends Component {
       input: [
         {
           id: 1,
-          item: '',
-          label: '',
-          displayInputElement: ''
+          item: "",
+          label: "",
+          displayInputElement: ""
         }
       ],
-      choice_option: '',
+      choice_option: "",
       choice_inputs: [],
       showResults: false,
       showResult2: false,
-      background: '#fff',
-      font_color: '#333',
-      activeFont: 'Open Sans',
-      font_size: '13px',
-      formTitle: '',
-      workspaceId: ''
+      background: "#fff",
+      font_color: "#333",
+      activeFont: "Open Sans",
+      font_size: "13px",
+      formTitle: "",
+      workspaceId: ""
     };
 
     this.shortText = this.shortText.bind(this);
@@ -132,7 +132,7 @@ class Create extends Component {
       />
     );
     const displayInputElement = <h3 />;
-    const label = '';
+    const label = "";
     const id = uniqueId;
     this.setState({
       input: input.concat({
@@ -365,7 +365,7 @@ class Create extends Component {
   }
 
   SaveForm(e) {
-    const elmnt = document.getElementsByTagName('FORM')[0];
+    const elmnt = document.getElementsByTagName("FORM")[0];
     axios
       .post(
         `http://swyp-business-backend-service.herokuapp.com/api/v1/forms
@@ -439,7 +439,7 @@ class Create extends Component {
                       aria-controls="blocks"
                     >
                       <span className="glyphicon glyphicon-th-large">
-                        blocks{' '}
+                        blocks{" "}
                       </span>
                     </a>
                   </li>
@@ -451,7 +451,7 @@ class Create extends Component {
                       role="tab"
                       aria-controls="style"
                     >
-                      {' '}
+                      {" "}
                       <span className="glyphicon glyphicon-cog">design</span>
                     </a>
                   </li>
@@ -539,7 +539,7 @@ class Create extends Component {
 
                     <div className="card bg-light text-dark">
                       <div className="card-body" onClick={this.colorSetting}>
-                        {' '}
+                        {" "}
                         background color setting
                       </div>
                     </div>
@@ -552,7 +552,7 @@ class Create extends Component {
                         className="card-body"
                         onClick={this.fontColorSetting}
                       >
-                        {' '}
+                        {" "}
                         Font color setting
                       </div>
                     </div>

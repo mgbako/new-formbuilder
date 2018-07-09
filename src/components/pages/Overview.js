@@ -1,31 +1,31 @@
-import React, { Component } from 'react';
-import FeatherIcon from 'feather-icons-react';
-import DateRangePicker from 'react-bootstrap-daterangepicker';
-import DateRangePicker2 from 'react-bootstrap-daterangepicker';
-import DateRangePicker3 from 'react-bootstrap-daterangepicker';
-import { Doughnut } from 'react-chartjs-2';
-import { Pie } from 'react-chartjs-2';
-import { Bar } from 'react-chartjs-2';
-import Collapsible from 'react-collapsible';
-import axios from 'axios';
-import 'bootstrap-daterangepicker/daterangepicker.css';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { fetchFormResponseStatus } from '../../actions/workspaceActions';
-import ImagePlaceholder from '../../img/placeholder-face.png';
+import React, { Component } from "react";
+import FeatherIcon from "feather-icons-react";
+import DateRangePicker from "react-bootstrap-daterangepicker";
+import DateRangePicker2 from "react-bootstrap-daterangepicker";
+import DateRangePicker3 from "react-bootstrap-daterangepicker";
+import { Doughnut } from "react-chartjs-2";
+import { Pie } from "react-chartjs-2";
+import { Bar } from "react-chartjs-2";
+import Collapsible from "react-collapsible";
+import axios from "axios";
+import "bootstrap-daterangepicker/daterangepicker.css";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { fetchFormResponseStatus } from "../../actions/workspaceActions";
+import ImagePlaceholder from "../../img/placeholder-face.png";
 
 const MostPopularForms = {
   labels: [
-    'Prepaid Card Request',
-    'Dormant Account Reactivation',
-    'Internet and Online Banking',
-    'Account Update'
+    "Prepaid Card Request",
+    "Dormant Account Reactivation",
+    "Internet and Online Banking",
+    "Account Update"
   ],
   datasets: [
     {
-      label: 'Most popular Forms',
-      backgroundColor: '#99FF99',
-      hoverBackgroundColor: '#339933',
+      label: "Most popular Forms",
+      backgroundColor: "#99FF99",
+      hoverBackgroundColor: "#339933",
       data: [915, 850, 791, 750]
     }
   ]
@@ -33,32 +33,32 @@ const MostPopularForms = {
 
 const CompletedForms = {
   labels: [
-    'Prepaid Card Request',
-    'Dormant Account Reactivation',
-    'Internet and Online Banking',
-    'Account Update'
+    "Prepaid Card Request",
+    "Dormant Account Reactivation",
+    "Internet and Online Banking",
+    "Account Update"
   ],
   datasets: [
     {
       data: [300, 50, 100, 20],
-      backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#D3D3D3'],
-      hoverBackgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#D3D3D3']
+      backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56", "#D3D3D3"],
+      hoverBackgroundColor: ["#FF6384", "#36A2EB", "#FFCE56", "#D3D3D3"]
     }
   ]
 };
 
 const UnsubmittedResponses = {
   labels: [
-    'Prepaid Card Request',
-    'Account collectibles',
-    'Account Update',
-    'Prepaid Cash Request'
+    "Prepaid Card Request",
+    "Account collectibles",
+    "Account Update",
+    "Prepaid Cash Request"
   ],
   datasets: [
     {
       data: [300, 50, 100, 500],
-      backgroundColor: ['#339966', '#336699', '#663333', '#990000'],
-      hoverBackgroundColor: ['#FF6384', '#36A2EB', '#FFCE56']
+      backgroundColor: ["#339966", "#336699", "#663333", "#990000"],
+      hoverBackgroundColor: ["#FF6384", "#36A2EB", "#FFCE56"]
     }
   ]
 };
@@ -69,9 +69,9 @@ class Overview extends Component {
 
     this.state = {
       notingActivity: [],
-      unread: '',
-      processed: '',
-      noted: ''
+      unread: "",
+      processed: "",
+      noted: ""
     };
   }
 
@@ -82,7 +82,7 @@ class Overview extends Component {
 
     axios
       .get(
-        'http://swyp-business-backend-service.herokuapp.com/api/v1/businesses/stats'
+        "http://swyp-business-backend-service.herokuapp.com/api/v1/businesses/stats"
       )
       .then(res => {
         this.setState({ notingActivity: res.data.notingActivity });
@@ -91,7 +91,7 @@ class Overview extends Component {
 
     axios
       .get(
-        'http://swyp-business-backend-service.herokuapp.com/api/v1/responses/bystatus/pending'
+        "http://swyp-business-backend-service.herokuapp.com/api/v1/responses/bystatus/pending"
       )
       .then(res => {
         this.setState({ unread: res.data.count });
@@ -99,7 +99,7 @@ class Overview extends Component {
       });
     axios
       .get(
-        'http://swyp-business-backend-service.herokuapp.com/api/v1/responses/bystatus/noted'
+        "http://swyp-business-backend-service.herokuapp.com/api/v1/responses/bystatus/noted"
       )
       .then(res => {
         this.setState({ noted: res.data.count });
@@ -108,7 +108,7 @@ class Overview extends Component {
 
     axios
       .get(
-        'http://swyp-business-backend-service.herokuapp.com/api/v1/responses/bystatus/processed'
+        "http://swyp-business-backend-service.herokuapp.com/api/v1/responses/bystatus/processed"
       )
       .then(res => {
         this.setState({ processed: res.data.count });
@@ -187,7 +187,7 @@ class Overview extends Component {
               </tbody>
             </table>
           </div>
-          <div className="shadow-sm col-md-6" style={{ height: '350px' }}>
+          <div className="shadow-sm col-md-6" style={{ height: "350px" }}>
             <h4>Moste Popular Forms </h4>
 
             <Bar

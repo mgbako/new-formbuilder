@@ -20,7 +20,7 @@ class Request_Password_Reset_Token extends Component {
     e.preventDefault();
 
 
-    axios.post(`http://swyp-business-backend-service.herokuapp.com/api/v1/businesses/requestpasswordrest`, {
+    axios.post(`https://swyp-business-backend-service.herokuapp.com/api/v1/businesses/requestpasswordrest`, {
       origin: window.location.origin,
       email: this.state.email,
      })

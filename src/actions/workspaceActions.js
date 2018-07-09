@@ -6,7 +6,7 @@ import {FETCH_WORKSPACES, NEW_WORKSPACE, CREATE_FORM_DATA, WORKSPACE_FORMS, FORM
 
 export function fetchWorkspaces(businessId) {
   return function(dispatch) {
-    axios.get(`http://swyp-business-backend-service.herokuapp.com/api/v1/workspaces/getbybusiness/${businessId}`)
+    axios.get(`https://swyp-business-backend-service.herokuapp.com/api/v1/workspaces/getbybusiness/${businessId}`)
     .then(response => {
       dispatch({
         type: FETCH_WORKSPACES,
@@ -34,7 +34,7 @@ export function getFormIdAndTitle(createFormData) {
 
 export function fetchWorkspaceForm(workspaceId) {
   return function(dispatch) {
-    axios.get(`http://swyp-business-backend-service.herokuapp.com/api/v1/forms/workspaces/${workspaceId}`)
+    axios.get(`https://swyp-business-backend-service.herokuapp.com/api/v1/forms/workspaces/${workspaceId}`)
     .then(response => {
       console.log(response.data);
       dispatch({
@@ -50,7 +50,7 @@ export function fetchWorkspaceForm(workspaceId) {
 
 export function fetchFormResponseStatus() {
   return function(dispatch) {
-    axios.get(`http://swyp-business-backend-service.herokuapp.com/api/v1/responses/bystatus/pending`)
+    axios.get(`https://swyp-business-backend-service.herokuapp.com/api/v1/responses/bystatus/pending`)
     .then(response => {
       console.log(response.data);
       dispatch({

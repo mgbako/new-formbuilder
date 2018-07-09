@@ -55,7 +55,7 @@ getFormId = (e) => {
  getNote =(e) =>{
    e.preventDefault();
    let formId = this.state.formId
-   axios.post(`http://swyp-business-backend-service.herokuapp.com/api/v1/responses/addnote/${formId}`, {
+   axios.post(`https://swyp-business-backend-service.herokuapp.com/api/v1/responses/addnote/${formId}`, {
      note:this.state.note
     })
      .then(res => {
@@ -88,7 +88,7 @@ getFormId = (e) => {
       addUser= (e) =>{
         e.preventDefault();
 
-        axios.post(`http://swyp-business-backend-service.herokuapp.com/api/v1/businesses/adduser`, {
+        axios.post(`https://swyp-business-backend-service.herokuapp.com/api/v1/businesses/adduser`, {
           name: this.state.name,
           email: this.state.email,
           phone: this.state.phone,
@@ -106,7 +106,7 @@ getFormId = (e) => {
       deleteBusinessUser= (e) =>{
         e.preventDefault();
         this.setState({ email: e.target.id });
-        axios.post(`http://swyp-business-backend-service.herokuapp.com/api/v1/businesses/deleteuser`, {
+        axios.post(`https://swyp-business-backend-service.herokuapp.com/api/v1/businesses/deleteuser`, {
           email: this.state.email
 
          })
@@ -123,7 +123,7 @@ getFormId = (e) => {
 // this.props.fetchFormResponseStatus();
 // console.log(this.props)
 
-  axios.get(`http://swyp-business-backend-service.herokuapp.com/api/v1/responses/bystatus/pending`)
+  axios.get(`https://swyp-business-backend-service.herokuapp.com/api/v1/responses/bystatus/pending`)
   .then(res => {
     this.setState({ pending: res.data.result });
     console.log(this.state.pending );

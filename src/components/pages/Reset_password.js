@@ -19,7 +19,7 @@ class Reset_password extends Component {
     e.preventDefault();
 
 
-    axios.post(`http://swyp-business-backend-service.herokuapp.com/api/v1/businesses/resetpassword`, {
+    axios.post(`https://swyp-business-backend-service.herokuapp.com/api/v1/businesses/resetpassword`, {
       password: this.state.password,
       email:'',
       token:''

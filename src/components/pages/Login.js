@@ -25,17 +25,15 @@ this.handleInputChange = this.handleInputChange.bind(this);
     e.preventDefault();
 
 
-    axios.post(`http://swyp-business-backend-service.herokuapp.com/api/v1/businesses/loginuser`, {
+    axios.post(`https://swyp-business-backend-service.herokuapp.com/api/v1/businesses/loginuser`, {
       email: this.state.email,
       password: this.state.password
      })
       .then(res => {
-        window.sessionStorage.all = res.data.business.accounts;
         window.sessionStorage.token = res.data.token;
         window.sessionStorage._id = res.data.business._id;
         if (res.data.token !== undefined){
       this.props.history.push("/dashboard");
-console.log(window.sessionStorage.all);
          }
       }).catch(function (error) {
       });

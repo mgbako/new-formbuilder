@@ -36,7 +36,7 @@ onChangeFunc(e){
 disableForm = (e) => {
   e.preventDefault();
 if(window.confirm('Are you sure you want to disable this form?')){
-  axios.put(`http://swyp-business-backend-service.herokuapp.com/api/v1/forms/disable/${e.target.id}`)
+  axios.put(`https://swyp-business-backend-service.herokuapp.com/api/v1/forms/disable/${e.target.id}`)
 
 }
 
@@ -45,7 +45,7 @@ if(window.confirm('Are you sure you want to disable this form?')){
 deleteForm = (e) => {
   e.preventDefault();
 if(window.confirm('Are you sure you want to delete this form?')){
-  axios.delete(`http://swyp-business-backend-service.herokuapp.com/api/v1/forms/${e.target.id}`)
+  axios.delete(`https://swyp-business-backend-service.herokuapp.com/api/v1/forms/${e.target.id}`)
 }
 }
 
@@ -65,7 +65,7 @@ console.log(this.props.fetchWorkspaceForm(this.state.workspaceId))
         e.preventDefault();
         if(this.state.workspaceName){
 if(window.confirm('Are you sure you want to delete this Workspace?')){
-        axios.delete(`http://swyp-business-backend-service.herokuapp.com/api/v1/workspaces/${this.state.workspaceId}`)
+        axios.delete(`https://swyp-business-backend-service.herokuapp.com/api/v1/workspaces/${this.state.workspaceId}`)
         .then(res => {
           let workspaceName = '';
           this.setState({ workspaceName});
@@ -86,7 +86,7 @@ else {
   e.preventDefault();
 
 
-  axios.post(`http://swyp-business-backend-service.herokuapp.com/api/v1/workspaces`, {
+  axios.post(`https://swyp-business-backend-service.herokuapp.com/api/v1/workspaces`, {
     name: this.state.name,
     business: businessId
    })

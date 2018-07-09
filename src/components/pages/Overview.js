@@ -100,24 +100,24 @@ class Overview extends Component {
     console.log(this.props.formResponseData);
 
 
-    axios.get(`http://swyp-business-backend-service.herokuapp.com/api/v1/businesses/stats`)
+    axios.get(`https://swyp-business-backend-service.herokuapp.com/api/v1/businesses/stats`)
     .then(res => {
       this.setState({  notingActivity: res.data.notingActivity});
       console.log(this.state.notingActivity);
     });
 
-    axios.get(`http://swyp-business-backend-service.herokuapp.com/api/v1/responses/bystatus/pending`)
+    axios.get(`https://swyp-business-backend-service.herokuapp.com/api/v1/responses/bystatus/pending`)
     .then(res => {
       this.setState({  unread: res.data.count});
       console.log(res.data.count);
     });
-    axios.get(`http://swyp-business-backend-service.herokuapp.com/api/v1/responses/bystatus/noted`)
+    axios.get(`https://swyp-business-backend-service.herokuapp.com/api/v1/responses/bystatus/noted`)
     .then(res => {
       this.setState({  noted: res.data.count});
       console.log(res.data.count);
     });
 
-        axios.get(`http://swyp-business-backend-service.herokuapp.com/api/v1/responses/bystatus/processed`)
+        axios.get(`https://swyp-business-backend-service.herokuapp.com/api/v1/responses/bystatus/processed`)
         .then(res => {
           this.setState({  processed: res.data.count});
           console.log(res.data.count);

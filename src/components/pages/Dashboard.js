@@ -1,12 +1,10 @@
 import React, { Component } from "react";
 import FeatherIcon from "feather-icons-react";
 import DateRangePicker from "react-bootstrap-daterangepicker";
-
 import axios from "axios";
 import "bootstrap-daterangepicker/daterangepicker.css";
 import { connect } from "react-redux";
 import { fetchFormResponseStatus } from "../../actions/workspaceActions";
-
 import ImagePlaceholder from "../../img/placeholder-face.png";
 import { Link } from "react-router-dom";
 
@@ -32,6 +30,7 @@ class Dashboard extends Component {
 
   getFormId = e => {
     this.setState({ formId: e.target.id });
+    alert(this.state.formId);
   };
 
   handleNoteChange = e => {
@@ -274,7 +273,7 @@ class Dashboard extends Component {
             <div
               className="modal fade"
               id="exampleModal"
-              tabindex="-1"
+              tabIndex="-1"
               role="dialog"
               aria-labelledby="exampleModalLabel"
               aria-hidden="true"
@@ -400,7 +399,7 @@ class Dashboard extends Component {
                         className="form-control"
                         placeholder="Name"
                         required
-                        autofocus
+                        autoFocus
                         onChange={this.handleNameChange}
                       />
                       <input

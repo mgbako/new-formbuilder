@@ -4,7 +4,6 @@ import axios from "axios";
 import { connect } from "react-redux";
 import { SketchPicker, CompactPicker } from "react-color";
 import FontPicker from "font-picker-react";
-
 import Display from "./Display";
 import { getFormIdAndTitle } from "../../actions/workspaceActions";
 
@@ -59,34 +58,38 @@ class Create extends Component {
   fontColorSetting() {
     this.setState(prev => ({ showResult2: !prev.showResult2 }));
   }
-
   handleBackgroundColorChange(color) {
     this.setState({ background: color.hex });
+    console.log(this.state.background);
+    console.log(this.state.activeFont);
   }
 
   handleFontColorChange(color) {
     this.setState({ font_color: color.hex });
+    console.log(this.state.font_color);
   }
 
   fontSizeSetting(e) {
-    this.setState({ font_size: `${e.target.value}px` });
+    this.setState({ font_size: e.target.value + "px" });
   }
 
   handleTextChange(e) {
-    const id = e.target.id;
-    const selectedInput = this.state.input[id];
+    let id = e.target.id;
+    const inputs = this.state.input;
+    let selectedInput = this.state.input[id];
     selectedInput.label = e.target.value;
-    this.state.input[id] = selectedInput;
-    this.setState({ input: this.state.input });
+
+    inputs[id] = selectedInput;
+    this.setState({ input: inputs });
   }
 
   onChangeFunc(e) {
-    const id = e.target.id;
-    this.setState({ input: this.state.input });
-    const selectedInput = this.state.input[id];
+    let id = e.target.id;
+    const input = this.state.input;
+    let selectedInput = this.state.input[id];
     selectedInput.label = <h3 className="section-title">{e.target.value}</h3>;
-    this.state.input[id] = selectedInput;
-    this.setState({ input: this.state.input });
+    input[id] = selectedInput;
+    this.setState({ input: input });
   }
 
   shortText() {
@@ -110,15 +113,10 @@ class Create extends Component {
     const label = this.state.label;
     const id = uniqueId;
     this.setState({
-      input: input.concat({
-        item,
-        label,
-        displayInputElement,
-        id
-      })
+      input: input.concat({ item, label, displayInputElement, id })
     });
+    console.log(this.state.input);
   }
-
   sectionTitle() {
     const input = this.state.input;
     const item = (
@@ -126,7 +124,7 @@ class Create extends Component {
         type="text"
         name="title"
         placeholder="Enter text here"
-        id={uniqueId + 1}
+        id={uniqueId++}
         className="InputDiv form-control"
         onChange={this.onChangeFunc.bind(this)}
       />
@@ -135,12 +133,7 @@ class Create extends Component {
     const label = "";
     const id = uniqueId;
     this.setState({
-      input: input.concat({
-        item,
-        label,
-        displayInputElement,
-        id
-      })
+      input: input.concat({ item, label, displayInputElement, id })
     });
   }
 
@@ -150,7 +143,7 @@ class Create extends Component {
       <input
         type="text"
         placeholder="Enter text here"
-        id={uniqueId + 1}
+        id={uniqueId++}
         className="InputDiv form-control"
         onChange={this.handleTextChange.bind(this)}
       />
@@ -161,12 +154,7 @@ class Create extends Component {
     const label = this.state.label;
     const id = uniqueId;
     this.setState({
-      input: input.concat({
-        item,
-        label,
-        displayInputElement,
-        id
-      })
+      input: input.concat({ item, label, displayInputElement, id })
     });
   }
 
@@ -191,12 +179,7 @@ class Create extends Component {
     const label = this.state.label;
     const id = uniqueId;
     this.setState({
-      input: input.concat({
-        item,
-        label,
-        displayInputElement,
-        id
-      })
+      input: input.concat({ item, label, displayInputElement, id })
     });
   }
 
@@ -221,12 +204,7 @@ class Create extends Component {
     const label = this.state.label;
     const id = uniqueId;
     this.setState({
-      input: input.concat({
-        item,
-        label,
-        displayInputElement,
-        id
-      })
+      input: input.concat({ item, label, displayInputElement, id })
     });
   }
 
@@ -252,12 +230,7 @@ class Create extends Component {
     const label = this.state.label;
     const id = uniqueId;
     this.setState({
-      input: input.concat({
-        item,
-        label,
-        displayInputElement,
-        id
-      })
+      input: input.concat({ item, label, displayInputElement, id })
     });
   }
 
@@ -291,12 +264,7 @@ class Create extends Component {
     const label = this.state.label;
     const id = uniqueId;
     this.setState({
-      input: input.concat({
-        item,
-        label,
-        displayInputElement,
-        id
-      })
+      input: input.concat({ item, label, displayInputElement, id })
     });
   }
 
@@ -322,12 +290,7 @@ class Create extends Component {
     const label = this.state.label;
     const id = uniqueId;
     this.setState({
-      input: input.concat({
-        item,
-        label,
-        displayInputElement,
-        id
-      })
+      input: input.concat({ item, label, displayInputElement, id })
     });
     console.log(this.state.input);
   }
@@ -354,12 +317,7 @@ class Create extends Component {
     const label = this.state.label;
     const id = uniqueId;
     this.setState({
-      input: input.concat({
-        item,
-        label,
-        displayInputElement,
-        id
-      })
+      input: input.concat({ item, label, displayInputElement, id })
     });
     console.log(this.state.input);
   }
@@ -385,8 +343,8 @@ class Create extends Component {
     this.props.getFormIdAndTitle();
     const formTitle = this.props.createFormData.title;
     const workspaceId = this.props.createFormData.id;
-    this.setState({ formTitle, workspaceId });
-    console.log(formTitle);
+    this.setState({ formTitle: formTitle, workspaceId: workspaceId });
+    console.log(this.props);
   }
 
   render() {

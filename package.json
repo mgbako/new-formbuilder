@@ -4,14 +4,14 @@
   "private": true,
   "scripts": {
     "start": "react-scripts start",
-    "build": "lint-staged && yarn test && react-scripts build",
+    "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "precommit": "lint-staged && CI=true yarn test",
     "prepush": "lint-staged && CI=true yarn test",
     "eject": "react-scripts eject",
     "commit": "git-cz"
   },
-  "devDependencies": {
+  "dependencies": {
     "axios": "^0.18.0",
     "bootstrap-daterangepicker": "^3.0.3",
     "carbon-components": "^9.1.1",

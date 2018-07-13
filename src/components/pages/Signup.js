@@ -3,12 +3,29 @@ import axios from "axios";
 
 class Signup extends Component {
   state = {
+    fullname: "",
     name: "",
+    email: "",
+    phone: "",
+    password: "",
     logoUrl: ""
   };
 
   handleNameChange = e => {
+    this.setState({ fullname: e.target.value });
+  };
+  handleBusinessNameChange = e => {
     this.setState({ name: e.target.value });
+  };
+  handlePhoneChange = e => {
+    this.setState({ phone: e.target.value });
+  };
+  handleEmailChange = e => {
+    this.setState({ email: e.target.value });
+  };
+
+  handlePasswordChange = e => {
+    this.setState({ password: e.target.value });
   };
 
   handleLogoChange = e => {
@@ -24,10 +41,16 @@ class Signup extends Component {
         {
           logoUrl: this.state.logoUrl,
           name: this.state.name,
-          account: ""
+          account: {
+            name: this.state.fullname,
+            email: this.state.email,
+            phone: this.state.phone,
+            password: this.state.password
+          }
         }
       )
       .then(res => {
+        this.props.history.push("/dashboard");
         console.log(res);
         console.log(res.data);
       });
@@ -50,7 +73,7 @@ class Signup extends Component {
                 placeholder="Business Name"
                 required
                 autoFocus
-                onChange={this.handleNameChange}
+                onChange={this.handleBusinessNameChange}
               />
               <input
                 type="url"
@@ -60,7 +83,39 @@ class Signup extends Component {
                 required
                 onChange={this.handleLogoChange}
               />
-
+              <input
+                type="text"
+                id="inputName"
+                className="form-control"
+                placeholder="Name"
+                required
+                autoFocus
+                onChange={this.handleNameChange}
+              />
+              <input
+                type="email"
+                id="inputEmail"
+                className="form-control"
+                placeholder="Email address"
+                required
+                onChange={this.handleEmailChange}
+              />
+              <input
+                type="number"
+                id="inputNumber"
+                className="form-control"
+                placeholder="Phone Number"
+                required
+                onChange={this.handlePhoneChange}
+              />
+              <input
+                type="password"
+                id="inputPassword"
+                className="form-control"
+                placeholder="Password"
+                required
+                onChange={this.handlePasswordChange}
+              />
               <button
                 className="btn btn-lg btn-primary btn-block"
                 type="submit"

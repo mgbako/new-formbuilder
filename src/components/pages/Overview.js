@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import FeatherIcon from "feather-icons-react";
-import DateRangePicker from "react-bootstrap-daterangepicker";
 import DateRangePicker2 from "react-bootstrap-daterangepicker";
-import DateRangePicker3 from "react-bootstrap-daterangepicker";
 import { Doughnut } from "react-chartjs-2";
 import { Pie } from "react-chartjs-2";
 import { Bar } from "react-chartjs-2";
@@ -177,6 +175,7 @@ class Overview extends Component {
                     <td>
                       <img
                         src={ImagePlaceholder}
+                        alt=""
                         className="ImagePlaceholder"
                       />
                       {note._id}

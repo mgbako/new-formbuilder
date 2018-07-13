@@ -123,10 +123,6 @@ class Dashboard extends Component {
       });
   }
 
-  componentWillMount() {
-    this.props.loginData;
-  }
-
   render() {
     console.log(this.props.loginData.business);
 
@@ -371,6 +367,7 @@ class Dashboard extends Component {
                       <td>
                         <img
                           src={ImagePlaceholder}
+                          alt=""
                           className="ImagePlaceholder"
                         />{" "}
                         Abu Femi

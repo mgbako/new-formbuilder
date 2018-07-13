@@ -1,11 +1,8 @@
 import React, { Component } from "react";
-import createHistory from "history/createBrowserHistory";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { loginUser } from "../../actions/workspaceActions";
 import axios from "axios";
-
-const history = createHistory();
 
 class Login extends Component {
   constructor(props) {

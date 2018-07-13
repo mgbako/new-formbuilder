@@ -7,11 +7,8 @@ import {
   getFormIdAndTitle,
   fetchWorkspaceForm
 } from "../../actions/workspaceActions";
-import { Link, Redirect } from "react-router-dom";
 import PropTypes from "prop-types";
-import createHistory from "history/createBrowserHistory";
 
-const history = createHistory();
 const businessId = window.localStorage._id;
 
 class Forms extends Component {

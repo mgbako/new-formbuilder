@@ -2,6 +2,15 @@
   "name": "swyp-business-frontend-service",
   "version": "0.1.0",
   "private": true,
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "lint-staged && yarn test && react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "precommit": "lint-staged && yarn test",
+    "prepush": "lint-staged && yarn test",
+    "eject": "react-scripts eject",
+    "commit": "git-cz"
+  },
   "dependencies": {
     "axios": "^0.18.0",
     "bootstrap-daterangepicker": "^3.0.3",
@@ -9,12 +18,18 @@
     "carbon-components-react": "^6.6.3",
     "carbon-icons": "^7.0.7",
     "chart.js": "^2.7.2",
+    "cz-conventional-changelog": "^2.1.0",
+    "eslint-config-prettier": "^2.9.0",
+    "eslint-plugin-prettier": "^2.6.2",
     "feather-icons": "^4.7.3",
     "feather-icons-react": "^0.2.0",
     "font-picker-react": "^2.0.3",
     "history": "^4.7.2",
+    "husky": "^0.14.3",
     "jquery": "^3.3.1",
+    "lint-staged": "^7.2.0",
     "moment": "^2.22.2",
+    "prettier": "^1.13.7",
     "prop-types": "^15.6.2",
     "react": "^16.4.0",
     "react-bootstrap-daterangepicker": "^4.1.0",
@@ -29,33 +44,15 @@
     "redux": "^4.0.0",
     "redux-thunk": "^2.3.0"
   },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "npm run lint && npm run test && react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject",
-    "commit": "git-cz",
-    "lint": "eslint src"
-  },
-  "devDependencies": {
-    "cz-conventional-changelog": "^2.1.0",
-    "eslint": "^4.19.1",
-    "eslint-config-airbnb": "^16.1.0",
-    "eslint-plugin-import": "^2.12.0",
-    "eslint-plugin-jsx-a11y": "^6.0.3",
-    "eslint-plugin-prettier": "^2.6.0",
-    "eslint-plugin-react": "^7.9.1",
-    "husky": "^0.14.3",
-    "prettier": "^1.13.4",
-    "prettier-eslint": "^8.8.1"
-  },
   "config": {
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
     }
   },
-  "toBeFixed": {
-    "precommitee": "npm run lint && CI=true npm test",
-    "prepushee": "npm run lint &&  CI=true npm test"
+  "lint-staged": {
+    "src/**/*.{js,jsx,json,css}": [
+      "prettier --write",
+      "git add"
+    ]
   }
 }

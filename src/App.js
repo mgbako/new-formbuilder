@@ -23,7 +23,6 @@ import Reset_password from "./components/pages/ResetPassword";
 import ScrollToTop from "./components/ScrollToTop";
 
 import store from "./store";
-let token;
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
   <Route
@@ -39,13 +38,8 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
 );
 
 class App extends Component {
-  componentDidUpdate(props) {
-    let token = sessionStorage.getItem("token");
-  }
-
   render() {
     let token = sessionStorage.getItem("token");
-    console.log(token);
     axios.defaults.headers.common["Authorization"] = token;
     axios.defaults.headers.post["Content-Type"] =
       "application/x-www-form-urlencoded";
@@ -76,7 +70,6 @@ class App extends Component {
                   <PrivateRoute exact path="/overview" component={Overview} />
                 </Switch>
               </ScrollToTop>
-
               <Footer />
             </div>
           </Router>

@@ -6,8 +6,8 @@
     "start": "react-scripts start",
     "build": "lint-staged && yarn test && react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "precommit": "lint-staged && yarn test",
-    "prepush": "lint-staged && yarn test",
+    "precommit": "lint-staged",
+    "prepush": "yarn build",
     "eject": "react-scripts eject",
     "commit": "git-cz"
   },

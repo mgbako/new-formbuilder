@@ -40,6 +40,7 @@ class Login extends Component {
   }
 
   render() {
+    console.log(this.props);
     return (
       <main id="main" className="container">
         <div className="space10" />
@@ -72,6 +73,8 @@ class Login extends Component {
               <button
                 className="btn btn-lg btn-primary btn-block"
                 type="submit"
+                data-target="#form-title"
+                data-toggle={this.props.error ? "modal" : null}
               >
                 Sign in
               </button>
@@ -88,7 +91,8 @@ Login.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  loginData: state.workspaces.loginData
+  loginData: state.workspaces.loginData,
+  error: state.workspaces.message
 });
 
 export default connect(

@@ -9,7 +9,7 @@ import axios from "axios";
 import "bootstrap-daterangepicker/daterangepicker.css";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { fetchFormResponseStatus } from "../../actions/workspaceActions";
+import { fetchPendingForms } from "../../actions/workspaceActions";
 import ImagePlaceholder from "../../img/placeholder-face.png";
 
 const MostPopularForms = {
@@ -74,9 +74,9 @@ class Overview extends Component {
   }
 
   componentWillMount() {
-    this.props.fetchFormResponseStatus();
+    this.props.fetchPendingForms();
 
-    console.log(this.props.formResponseData);
+    console.log(this.props.formResponsePending);
 
     axios
       .get(
@@ -93,7 +93,7 @@ class Overview extends Component {
       )
       .then(res => {
         this.setState({ unread: res.data.count });
-        console.log(res.data.count);
+        console.log(res.data);
       });
     axios
       .get(
@@ -101,7 +101,7 @@ class Overview extends Component {
       )
       .then(res => {
         this.setState({ noted: res.data.count });
-        console.log(res.data.count);
+        console.log(res.data);
       });
 
     axios
@@ -223,13 +223,13 @@ class Overview extends Component {
 }
 
 Overview.propTypes = {
-  fetchFormResponseStatus: PropTypes.func.isRequired
+  fetchPendingForms: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
-  formResponseData: state.workspaces.formResponseData
+  formResponseData: state.workspaces.formResponsePending
 });
 export default connect(
   mapStateToProps,
-  { fetchFormResponseStatus }
+  { fetchPendingForms }
 )(Overview);

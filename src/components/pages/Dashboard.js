@@ -6,11 +6,15 @@ import moment from "moment";
 import "bootstrap-daterangepicker/daterangepicker.css";
 import { connect } from "react-redux";
 import {
-  fetchFormResponseStatus,
+  fetchPendingForms,
+  fetchNotedForms,
+  fetchProcessedForms,
   loginUser
 } from "../../actions/workspaceActions";
 import ImagePlaceholder from "../../img/placeholder-face.png";
 import { Link } from "react-router-dom";
+import Tab from "./Tab";
+import Tabs from "./Tabs";
 
 class Dashboard extends Component {
   constructor(props) {
@@ -23,8 +27,7 @@ class Dashboard extends Component {
       name: "",
       email: "",
       phone: "",
-      password: "",
-      pending: []
+      role: "worker"
     };
 
     this.rightNavButton = this.rightNavButton.bind(this);
@@ -34,7 +37,7 @@ class Dashboard extends Component {
 
   getFormId = e => {
     this.setState({ formId: e.target.id });
-    alert(this.state.formId);
+    console.log(this.state.formId);
   };
 
   handleNoteChange = e => {
@@ -43,10 +46,11 @@ class Dashboard extends Component {
   };
   getNote = e => {
     e.preventDefault();
-    let formId = this.state.formId;
     axios
       .post(
-        `https://swyp-business-backend-service.herokuapp.com/api/v1/responses/addnote/${formId}`,
+        `https://swyp-business-backend-service.herokuapp.com/api/v1/responses/addnote/${
+          this.state.formId
+        }`,
         {
           note: this.state.note
         }
@@ -72,10 +76,6 @@ class Dashboard extends Component {
     this.setState({ email: e.target.value });
   };
 
-  handlePasswordChange = e => {
-    this.setState({ password: e.target.value });
-  };
-
   addUser = e => {
     e.preventDefault();
 
@@ -86,8 +86,9 @@ class Dashboard extends Component {
           name: this.state.name,
           email: this.state.email,
           phone: this.state.phone,
-          password: this.state.password,
-          business: window.sessionStorage._id
+          role: this.state.role,
+          origin: window.location.origin + "/reset_password",
+          business: this.props.loginData.business.id
         }
       )
       .then(res => {
@@ -113,18 +114,16 @@ class Dashboard extends Component {
   };
 
   componentDidMount() {
-    axios
-      .get(
-        `https://swyp-business-backend-service.herokuapp.com/api/v1/responses/bystatus/pending`
-      )
-      .then(res => {
-        this.setState({ pending: res.data.result });
-        console.log(this.state.pending);
-      });
+    console.log(this.props);
+    this.props.fetchNotedForms();
+    this.props.fetchPendingForms();
+    this.props.fetchProcessedForms();
   }
 
   render() {
-    console.log(this.props.loginData.business);
+    if (!this.props.pending.result) {
+      return <div />;
+    }
 
     let rightNavClasses = this.state.showRightNav ? "active" : "";
     return (
@@ -187,83 +186,153 @@ class Dashboard extends Component {
             </nav>
 
             <main id="main" className="col-md-9 ml-sm-auto col-lg-10 px-4">
-              <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
-                <div className="btn-toolbar mb-2 mb-md-0">
-                  <div className="btn-group mr-2">
-                    <button className="btn btn-sm btn-outline-secondary">
-                      {" "}
-                      Unread
-                    </button>
-                    <button className="btn btn-sm btn-outline-secondary">
-                      Pending
-                    </button>
-                    <button className="btn btn-sm btn-outline-secondary">
-                      Processed
-                    </button>
+              <Tabs>
+                <Tab iconClassName={"Unread"} linkClassName={"custom-link"}>
+                  <div className="table-responsive">
+                    <table className="table table-sm shadow-sm">
+                      <thead>
+                        <tr>
+                          <th>Forms</th>
+                          <th>Respondents</th>
+                          <th>Date Recieved</th>
+                          <th>Date Processed</th>
+                          <th>Procesed By</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {this.props.pending.result.map(pending => (
+                          <tr>
+                            <td>{pending.form.name}</td>
+                            <td>
+                              {pending.respondant.lastname +
+                                " " +
+                                pending.respondant.firstname}{" "}
+                            </td>
+                            <td> {moment(pending.createdAt).format("ll")}</td>
+                            <td />
+                            <td />
+                            <div className="edit">
+                              <a href="#" onClick={this.getFormId}>
+                                <span
+                                  id={pending.form.id}
+                                  data-toggle="modal"
+                                  data-target="#exampleModal"
+                                >
+                                  #
+                                </span>
+                              </a>{" "}
+                              <a href="#">
+                                <FeatherIcon
+                                  icon="file"
+                                  size="24"
+                                  className="noteIcon"
+                                />
+                              </a>
+                            </div>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
                   </div>
+                </Tab>
+                <Tab iconClassName={"Pending"} linkClassName={"custom-link"}>
+                  <div className="table-responsive">
+                    <table className="table table-sm shadow-sm">
+                      <thead>
+                        <tr>
+                          <th>Forms</th>
+                          <th>Respondents</th>
+                          <th>Date Recieved</th>
+                          <th>Date Processed</th>
+                          <th>Procesed By</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {this.props.noted.result.map(noted => (
+                          <tr>
+                            <td>{noted.form.name}</td>
+                            <td>
+                              {noted.respondant.lastname +
+                                " " +
+                                noted.respondant.firstname}{" "}
+                            </td>
+                            <td> {moment(noted.createdAt).format("ll")}</td>
+                            <td />
+                            <td />
+                            <div className="edit">
+                              <a href="#" onClick={this.getFormId}>
+                                <span
+                                  id={noted.form.id}
+                                  data-toggle="modal"
+                                  data-target="#exampleModal"
+                                >
+                                  #
+                                </span>
+                              </a>{" "}
+                              <a href="#">
+                                <FeatherIcon
+                                  icon="file"
+                                  size="24"
+                                  className="noteIcon"
+                                />
+                              </a>
+                            </div>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </Tab>
 
-                  <select className="selectpicker">
-                    <option>Today</option>
-                    <option>Yesterday</option>
-                    <option>Last 7 days</option>
-                    <option>Last 30 days</option>
-                  </select>
-                  <DateRangePicker startDate="7/7/2018" endDate="8/7/2018">
-                    <button className="btn btn-sm btn-outline-secondary">
-                      <FeatherIcon icon="calendar" size="18" className="icon" />
-                    </button>
-                  </DateRangePicker>
-                </div>
-              </div>
-
-              <div className="table-responsive">
-                <table className="table table-sm shadow-sm">
-                  <thead>
-                    <tr>
-                      <th>Forms</th>
-                      <th>Respondents</th>
-                      <th>Date Recieved</th>
-                      <th>Date Processed</th>
-                      <th>Procesed By</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {this.state.pending.map(pending => (
-                      <tr>
-                        <td>{pending.form.name}</td>
-                        <td>
-                          {pending.respondant.lastname +
-                            " " +
-                            pending.respondant.firstname}{" "}
-                        </td>
-                        <td> {moment(pending.createdAt).format("ll")}</td>
-                        <td />
-                        <td />
-                        <div className="edit">
-                          <a href="#">
-                            <FeatherIcon
-                              id={pending.form._id}
-                              data-toggle="modal"
-                              data-target="#exampleModal"
-                              icon="feather"
-                              size="24"
-                              className="writeIcon"
-                              onClick={this.getFormId}
-                            />
-                          </a>{" "}
-                          <a href="#">
-                            <FeatherIcon
-                              icon="file"
-                              size="24"
-                              className="noteIcon"
-                            />
-                          </a>
-                        </div>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
+                <Tab iconClassName={"Processed"} linkClassName={"custom-link"}>
+                  <div className="table-responsive">
+                    <table className="table table-sm shadow-sm">
+                      <thead>
+                        <tr>
+                          <th>Forms</th>
+                          <th>Respondents</th>
+                          <th>Date Recieved</th>
+                          <th>Date Processed</th>
+                          <th>Procesed By</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {this.props.processed.result.map(processed => (
+                          <tr>
+                            <td>{processed.form.name}</td>
+                            <td>
+                              {processed.respondant.lastname +
+                                " " +
+                                processed.respondant.firstname}{" "}
+                            </td>
+                            <td> {moment(processed.createdAt).format("ll")}</td>
+                            <td />
+                            <td />
+                            <div className="edit">
+                              <a href="#" onClick={this.getFormId}>
+                                <span
+                                  id={processed.form.id}
+                                  data-toggle="modal"
+                                  data-target="#exampleModal"
+                                >
+                                  #
+                                </span>
+                              </a>{" "}
+                              <a href="#">
+                                <FeatherIcon
+                                  icon="file"
+                                  size="24"
+                                  className="noteIcon"
+                                />
+                              </a>
+                            </div>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>{" "}
+                </Tab>
+              </Tabs>
 
               <div className="space5" />
 
@@ -309,6 +378,7 @@ class Dashboard extends Component {
                       type="button"
                       className="btn btn-success"
                       onClick={this.getNote}
+                      data-dismiss="modal"
                     >
                       Save note
                     </button>
@@ -363,27 +433,29 @@ class Dashboard extends Component {
                     </tr>
                   </thead>
                   <tbody>
-                    <tr className="text-left">
-                      <td>
-                        <img
-                          src={ImagePlaceholder}
-                          alt=""
-                          className="ImagePlaceholder"
-                        />{" "}
-                        Abu Femi
-                      </td>
-                      <div className="edit">
-                        <a href="#">
-                          <FeatherIcon
-                            icon="trash-2"
-                            size="24"
-                            className="noteIcon"
-                            onClick={this.deleteBusinessUser}
+                    {this.props.loginData.business.accounts.map(user => (
+                      <tr className="text-left">
+                        <td>
+                          <img
+                            src={ImagePlaceholder}
+                            alt=""
+                            className="ImagePlaceholder"
                           />
-                        </a>
-                      </div>
-                      )}
-                    </tr>
+                          {user.name}
+                        </td>
+                        <div className="edit">
+                          <a href="#">
+                            <FeatherIcon
+                              icon="trash-2"
+                              size="24"
+                              className="noteIcon"
+                              id={user.email}
+                              onClick={this.deleteBusinessUser}
+                            />
+                          </a>
+                        </div>
+                      </tr>
+                    ))}
                   </tbody>
                 </table>
                 <div className="space5" />
@@ -422,14 +494,15 @@ class Dashboard extends Component {
                         required
                         onChange={this.handlePhoneChange}
                       />
-                      <input
-                        type="password"
-                        id="inputPassword"
+
+                      <select
                         className="form-control"
-                        placeholder="Password"
-                        required
-                        onChange={this.handlePasswordChange}
-                      />
+                        onChange={e => this.setState({ role: e.target.value })}
+                      >
+                        <option value="worker">worker</option>
+                        <option value="admin">admin</option>
+                      </select>
+
                       <div className="checkbox mb-3" />
                       <button
                         className="btn btn-lg btn-primary btn-block"
@@ -457,11 +530,13 @@ class Dashboard extends Component {
 }
 
 const mapStateToProps = state => ({
-  formResponseData: state.workspaces.formResponseData,
+  pending: state.workspaces.formResponsePending,
+  noted: state.workspaces.formResponseNoted,
+  processed: state.workspaces.formResponseProcessed,
   loginData: state.workspaces.loginData
 });
 
 export default connect(
   mapStateToProps,
-  { fetchFormResponseStatus, loginUser }
+  { fetchPendingForms, fetchNotedForms, fetchProcessedForms, loginUser }
 )(Dashboard);

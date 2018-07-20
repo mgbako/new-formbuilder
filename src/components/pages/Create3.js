@@ -34,7 +34,8 @@ class Create extends Component {
       activeFont: "Open Sans",
       font_size: "13px",
       formTitle: "",
-      workspaceId: ""
+      workspaceId: "",
+      name: this.props.name
     };
 
     this.shortText = this.shortText.bind(this);
@@ -62,10 +63,13 @@ class Create extends Component {
   }
   handleBackgroundColorChange(color) {
     this.setState({ background: color.hex });
+    console.log(this.state.background);
+    console.log(this.state.activeFont);
   }
 
   handleFontColorChange(color) {
     this.setState({ font_color: color.hex });
+    console.log(this.state.font_color);
   }
 
   fontSizeSetting(e) {
@@ -75,9 +79,18 @@ class Create extends Component {
   handleTextChange(e) {
     let id = e.target.id;
     const inputs = this.state.input;
+    const selectedInput = this.state.input[id];
+    selectedInput.label = e.target.value;
+    this.setState({ newName: selectedInput.label });
+    console.log(this.state.newName);
+    this.setState({
+      name: "chicken"
+    }),
+      () => {
+        callbackToParent(this.state.name);
+      };
 
-    const selectedInput = transformInput(inputs[id], e.target.value);
-    inputs[id] = selectedInput;
+    //selectedInput.displayInputElement.props.name = selectedInput.label
     this.setState({ input: inputs });
   }
 
@@ -106,10 +119,12 @@ class Create extends Component {
     let displayInputElement = (
       <input
         type="text"
+        name={this.state.name}
         placeholder="Type your answer here"
         className=" form-control"
       />
     );
+
     this.setState({
       input: input.concat({ item, label, displayInputElement, id })
     });
@@ -243,18 +258,21 @@ class Create extends Component {
       />
     );
     const displayInputElement = (
-      <div dataname="radio">
-        <span className="radio-style">
-          <input type="radio" className="" name="yes_no" value="Yes" />
-          Yes
-        </span>
-        <span className="radio-style">
-          <input type="radio" className="" name="yes_no" value="No" />
-          No
-        </span>
+      <div>
+        <p>
+          <span className="radio-style">
+            <input type="radio" className="" name="yes_no" value="Yes" />
+            Yes
+          </span>
+        </p>
+        <p>
+          <span className="radio-style">
+            <input type="radio" className="" name="yes_no" value="No" />
+            No
+          </span>
+        </p>
       </div>
     );
-    console.log(displayInputElement.props.children);
     const label = this.state.label;
     const id = uniqueId;
     this.setState({
@@ -592,35 +610,3 @@ export default connect(
   mapStateToProps,
   { getFormIdAndTitle, formPreviewData }
 )(Create);
-
-const transformInput = (selectedInput, inputTitle) => {
-  const currentProperties = { ...selectedInput.displayInputElement.props };
-  const typeOfInput = selectedInput.displayInputElement.type;
-  let createdElement = {};
-  switch (typeOfInput) {
-    case "input":
-      currentProperties.name = inputTitle.toLowerCase();
-      createdElement = <input {...currentProperties} />;
-      break;
-    case "textarea":
-      currentProperties.name = inputTitle.toLowerCase();
-      createdElement = <textarea {...currentProperties} />;
-      break;
-
-    // case "div":
-    //
-    //     let arrayLength = selectedInput.displayInputElement.length;
-    //
-    //     for (let i = 0; i < arrayLength; i++) {
-    //       currentProperties.children.name = inputTitle;
-    //       createdElement = <input {...currentProperties} />;
-    //     }
-    //     break;
-
-    default:
-      createdElement = selectedInput.displayInputElement;
-  }
-  selectedInput.label = inputTitle;
-  selectedInput.displayInputElement = createdElement;
-  return selectedInput;
-};

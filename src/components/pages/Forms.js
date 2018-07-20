@@ -1,15 +1,15 @@
 import React, { Component } from "react";
 import FeatherIcon from "feather-icons-react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import {
   fetchWorkspaces,
   getFormIdAndTitle,
-  fetchWorkspaceForm
+  fetchWorkspaceForm,
+  loginUser
 } from "../../actions/workspaceActions";
 import PropTypes from "prop-types";
-
-const businessId = window.localStorage._id;
 
 class Forms extends Component {
   constructor(props) {
@@ -58,7 +58,6 @@ class Forms extends Component {
     this.setState({ workspaceName: workspaceName, workspaceId: workspaceId });
 
     this.props.fetchWorkspaceForm(this.state.workspaceId);
-    console.log(this.props.fetchWorkspaceForm(this.state.workspaceId));
   }
 
   deleteWorkspace = e => {
@@ -92,13 +91,11 @@ class Forms extends Component {
       .post(
         `https://swyp-business-backend-service.herokuapp.com/api/v1/workspaces`,
         {
-          name: this.state.name,
-          business: businessId
+          name: this.state.name
         }
       )
       .then(res => {
         console.log(res);
-        console.log(res.data);
       });
   };
 
@@ -111,21 +108,26 @@ class Forms extends Component {
       };
 
       this.props.getFormIdAndTitle(createFormData);
-      console.log(this.props);
       this.props.history.push("/create");
     } else {
       alert("please input required fields");
     }
   };
+  componentDidMount() {
+    this.props.fetchWorkspaces(this.props.loginData.business.id);
+  }
 
   render() {
-    this.props.fetchWorkspaces(businessId);
-
+    console.log(this.props);
     return (
       <div>
         <div className="container-fluid">
           <div className="row">
             <nav className="col-md-2 d-none d-md-block bg-light sidebar">
+              <h5 className="font-weight-bold Header-logo text-center">
+                <Link to="/dashboard">SWYP</Link>
+              </h5>
+
               <div className="sidebar-sticky workstation">
                 <p>
                   {" "}
@@ -152,7 +154,7 @@ class Forms extends Component {
                     <input
                       type="text"
                       spellcheck="false"
-                      id={data._id}
+                      id={data.id}
                       value={data.name}
                       onClick={this.getWorkspaceForms}
                       readonly
@@ -199,7 +201,7 @@ class Forms extends Component {
                           icon="slash"
                           size="24"
                           className="noteIcon"
-                          id={form._id}
+                          id={form.id}
                           onClick={this.disableForm}
                         />
                       </a>{" "}
@@ -208,7 +210,7 @@ class Forms extends Component {
                           icon="trash-2"
                           size="24"
                           className="writeIcon"
-                          id={form._id}
+                          id={form.id}
                           onClick={this.deleteForm}
                         />
                       </a>
@@ -281,7 +283,7 @@ class Forms extends Component {
                       ref={input => (this.menu = input)}
                     >
                       {this.props.workspaces.map(data => (
-                        <option value={data._id}>{data.name}</option>
+                        <option value={data.id}>{data.name}</option>
                       ))}
                     </select>
                   </div>
@@ -323,10 +325,11 @@ Forms.propTypes = {
 
 const mapStateToProps = state => ({
   workspaces: state.workspaces.items,
-  workspaceForms: state.workspaces.workspaceForms
+  workspaceForms: state.workspaces.workspaceForms,
+  loginData: state.workspaces.loginData
 });
 
 export default connect(
   mapStateToProps,
-  { fetchWorkspaces, getFormIdAndTitle, fetchWorkspaceForm }
+  { fetchWorkspaces, getFormIdAndTitle, fetchWorkspaceForm, loginUser }
 )(Forms);

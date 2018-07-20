@@ -7,8 +7,7 @@ class Signup extends Component {
     name: "",
     email: "",
     phone: "",
-    password: "",
-    logoUrl: ""
+    password: ""
   };
 
   handleNameChange = e => {
@@ -28,28 +27,31 @@ class Signup extends Component {
     this.setState({ password: e.target.value });
   };
 
-  handleLogoChange = e => {
-    this.setState({ logoUrl: e.target.value });
-  };
-
   handleSubmit = e => {
     e.preventDefault();
 
     axios
       .post(
-        `http://swyp-business-backend-service.herokuapp.com/api/v1/businesses/`,
+        `https://swyp-business-backend-service.herokuapp.com/api/v1/businesses/`,
         {
-          logoUrl: this.state.logoUrl,
           name: this.state.name,
           account: {
             name: this.state.fullname,
             email: this.state.email,
             phone: this.state.phone,
-            password: this.state.password
+            password: this.state.password,
+            role: "admin"
           }
         }
       )
       .then(res => {
+        sessionStorage.setItem("token", res.data.token);
+        axios.defaults.headers.common["Authorization"] = sessionStorage.getItem(
+          "token"
+        );
+        axios.defaults.headers.post["Content-Type"] =
+          "application/x-www-form-urlencoded";
+
         this.props.history.push("/dashboard");
         console.log(res);
         console.log(res.data);
@@ -68,21 +70,14 @@ class Signup extends Component {
               </h1>
               <input
                 type="text"
-                id="inputEmail"
+                id="inputBuisnessName"
                 className="form-control"
                 placeholder="Business Name"
                 required
                 autoFocus
                 onChange={this.handleBusinessNameChange}
               />
-              <input
-                type="url"
-                id="inputUrl"
-                className="form-control"
-                placeholder="Business Logo Url"
-                required
-                onChange={this.handleLogoChange}
-              />
+
               <input
                 type="text"
                 id="inputName"

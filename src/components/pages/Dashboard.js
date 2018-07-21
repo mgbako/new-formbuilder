@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import FeatherIcon from "feather-icons-react";
-import DateRangePicker from "react-bootstrap-daterangepicker";
 import axios from "axios";
 import moment from "moment";
 import "bootstrap-daterangepicker/daterangepicker.css";
@@ -37,13 +36,12 @@ class Dashboard extends Component {
 
   getFormId = e => {
     this.setState({ formId: e.target.id });
-    console.log(this.state.formId);
   };
 
   handleNoteChange = e => {
-    console.log(e.target.value);
     this.setState({ note: e.target.value });
   };
+
   getNote = e => {
     e.preventDefault();
     axios
@@ -55,10 +53,9 @@ class Dashboard extends Component {
           note: this.state.note
         }
       )
-      .then(res => {
-        console.log(res.data);
-      });
+      .then(res => {});
   };
+
   rightNavButton = e => {
     this.setState(prevState => {
       return { showRightNav: !prevState.showRightNav };
@@ -72,6 +69,7 @@ class Dashboard extends Component {
   handlePhoneChange = e => {
     this.setState({ phone: e.target.value });
   };
+
   handleEmailChange = e => {
     this.setState({ email: e.target.value });
   };
@@ -114,7 +112,6 @@ class Dashboard extends Component {
   };
 
   componentDidMount() {
-    console.log(this.props);
     this.props.fetchNotedForms();
     this.props.fetchPendingForms();
     this.props.fetchProcessedForms();

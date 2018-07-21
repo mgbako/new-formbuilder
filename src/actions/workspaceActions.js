@@ -33,8 +33,7 @@ export function loginUser(loginDetails) {
       )
       .then(response => {
         sessionStorage.setItem("token", response.data.token);
-        const accounts = response.data.business.accounts;
-        console.log(accounts);
+        sessionStorage.setItem("businessId", response.data.business.id);
         dispatch({
           type: FETCH_LOGIN_DATA,
           payload: response.data
@@ -74,6 +73,7 @@ export function getFormIdAndTitle(createFormData) {
     });
   };
 }
+
 export function formPreviewData(formElement) {
   return function(dispatch) {
     dispatch({
@@ -103,48 +103,47 @@ export function fetchWorkspaceForm(workspaceId) {
 }
 
 export function fetchPendingForms() {
+  const businessId = sessionStorage.getItem("businessId");
   return function(dispatch) {
     axios
       .get(
-        "https://swyp-business-backend-service.herokuapp.com/api/v1/responses/bystatus/pending"
+        `https://swyp-business-backend-service.herokuapp.com/api/v1/responses/bystatus/pending?business=${businessId}`
       )
       .then(response => {
-        console.log(response.data);
         dispatch({
           type: FORM_RESPONSE_PENDING,
           payload: response.data
         });
       })
-      .catch(error => {
-        console.log(error);
-      });
+      .catch(error => {});
   };
 }
 
 export function fetchNotedForms() {
+  const businessId = sessionStorage.getItem("businessId");
+
   return function(dispatch) {
     axios
       .get(
-        "https://swyp-business-backend-service.herokuapp.com/api/v1/responses/bystatus/noted"
+        `https://swyp-business-backend-service.herokuapp.com/api/v1/responses/bystatus/noted?business=${businessId}`
       )
       .then(response => {
-        console.log(response.data);
         dispatch({
           type: FORM_RESPONSE_NOTED,
           payload: response.data
         });
       })
-      .catch(error => {
-        console.log(error);
-      });
+      .catch(error => {});
   };
 }
 
 export function fetchProcessedForms() {
+  const businessId = sessionStorage.getItem("businessId");
+
   return function(dispatch) {
     axios
       .get(
-        "https://swyp-business-backend-service.herokuapp.com/api/v1/responses/bystatus/processed"
+        `https://swyp-business-backend-service.herokuapp.com/api/v1/responses/bystatus/processed?business=${businessId}`
       )
       .then(response => {
         console.log(response.data);
@@ -153,8 +152,6 @@ export function fetchProcessedForms() {
           payload: response.data
         });
       })
-      .catch(error => {
-        console.log(error);
-      });
+      .catch(error => {});
   };
 }

@@ -4,9 +4,9 @@
   "private": true,
   "scripts": {
     "start": "react-scripts start",
-    "build": "lint-staged && react-scripts build",
+    "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "precommit": "yarn build",
+    "precommit": "lint-staged",
     "prepush": "yarn build",
     "eject": "react-scripts eject",
     "commit": "git-cz"

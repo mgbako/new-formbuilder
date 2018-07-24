@@ -60,6 +60,7 @@ class Create extends Component {
   fontColorSetting() {
     this.setState(prev => ({ showResult2: !prev.showResult2 }));
   }
+
   handleBackgroundColorChange(color) {
     this.setState({ background: color.hex });
   }
@@ -114,6 +115,7 @@ class Create extends Component {
       input: input.concat({ item, label, displayInputElement, id })
     });
   }
+
   sectionTitle() {
     const input = this.state.input;
     const item = (
@@ -315,6 +317,7 @@ class Create extends Component {
     });
     console.log(this.state.input);
   }
+
   previewForm = () => {
     const formElement = {
       inputs: this.state.input,
@@ -362,6 +365,7 @@ class Create extends Component {
         onChangeComplete={this.handleBackgroundColorChange}
       />
     );
+
     const fontColorPicker = (
       <CompactPicker
         color={this.state.background}
@@ -375,6 +379,7 @@ class Create extends Component {
       fontFamily: this.state.activeFont,
       color: this.state.font_color
     };
+
     return (
       <div>
         <div className="topMenu">

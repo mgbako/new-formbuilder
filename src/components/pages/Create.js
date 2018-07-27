@@ -1,10 +1,11 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
-import axios from "axios";
-import { connect } from "react-redux";
 import { SketchPicker, CompactPicker } from "react-color";
 import FontPicker from "font-picker-react";
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
 import Display from "./Display";
+import axios from "axios";
+import FormBuilder from "../../core/FormBuilder";
 import {
   getFormIdAndTitle,
   formPreviewData
@@ -37,16 +38,8 @@ class Create extends Component {
       workspaceId: ""
     };
 
-    this.shortText = this.shortText.bind(this);
-    this.sectionTitle = this.sectionTitle.bind(this);
-    this.longText = this.longText.bind(this);
-    this.email = this.email.bind(this);
-    this.number = this.number.bind(this);
     this.yesNo = this.yesNo.bind(this);
-    this.handleTextChange = this.handleTextChange.bind(this);
-    this.bvn = this.bvn.bind(this);
-    this.picture = this.picture.bind(this);
-    this.signature = this.signature.bind(this);
+
     this.colorSetting = this.colorSetting.bind(this);
     this.fontColorSetting = this.fontColorSetting.bind(this);
     this.fontSizeSetting = this.fontSizeSetting.bind(this);
@@ -73,47 +66,29 @@ class Create extends Component {
     this.setState({ font_size: e.target.value + "px" });
   }
 
-  handleTextChange(e) {
+  handleTextChange = e => {
     let id = e.target.id;
     const inputs = this.state.input;
-
-    const selectedInput = transformInput(inputs[id], e.target.value);
-    inputs[id] = selectedInput;
+    const inputIndex = inputs.findIndex(input => input.id === id);
+    const selectedInput = transformInput(inputs[inputIndex], e.target.value);
+    inputs[inputIndex] = selectedInput;
     this.setState({ input: inputs });
-  }
+  };
 
-  onChangeFunc(e) {
-    let id = e.target.id;
-    const input = this.state.input;
-    let selectedInput = this.state.input[id];
-    selectedInput.label = <h3 className="section-title">{e.target.value}</h3>;
-    input[id] = selectedInput;
-    this.setState({ input: input });
-  }
-
-  shortText() {
-    const item = (
-      <input
-        type="text"
-        placeholder="Enter text here"
-        id={uniqueId++}
-        className="InputDiv form-control"
-        onChange={this.handleTextChange.bind(this)}
-      />
+  buildElement(type) {
+    const { id, description, labelElement, formElement } = FormBuilder.build(
+      type,
+      this.handleTextChange
     );
-    const input = this.state.input;
-    const id = uniqueId;
-    const label = this.state.label;
-    let displayInputElement = (
-      <input
-        type="text"
-        placeholder="Type your answer here"
-        className=" form-control"
-      />
-    );
-    this.setState({
-      input: input.concat({ item, label, displayInputElement, id })
-    });
+    const inputs = this.state.input;
+    const input = {
+      item: labelElement,
+      label: description,
+      displayInputElement: formElement,
+      id
+    };
+    inputs.push(input);
+    this.setState({ input: inputs });
   }
 
   sectionTitle() {
@@ -276,19 +251,13 @@ class Create extends Component {
       />
     );
     const displayInputElement = (
-      <input
-        className="form-control-file"
-        type="file"
-        name="pic"
-        accept="image/*"
-      />
+      <input className="form-control-file" type="file" accept="image/*" />
     );
     const label = this.state.label;
     const id = uniqueId;
     this.setState({
       input: input.concat({ item, label, displayInputElement, id })
     });
-    console.log(this.state.input);
   }
 
   signature() {
@@ -448,7 +417,10 @@ class Create extends Component {
                       <div className="card-body">Welcome Screen</div>
                     </div>
                     <div className="card bg-light text-dark">
-                      <div className="card-body" onClick={this.shortText}>
+                      <div
+                        className="card-body"
+                        onClick={() => this.buildElement("shortText")}
+                      >
                         Short Text
                       </div>
                     </div>

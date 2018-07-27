@@ -71,9 +71,6 @@ class Dashboard extends Component {
           </div>
         </div>
         <Team />
-        {/* manage user modal. */}
-
-        {/* end manage user modal. */}
       </div>
     );
   }

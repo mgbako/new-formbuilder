@@ -2,31 +2,6 @@ import React, { Component } from "react";
 import axios from "axios";
 
 class Signup extends Component {
-  state = {
-    fullname: "",
-    name: "",
-    email: "",
-    phone: "",
-    password: ""
-  };
-
-  handleNameChange = e => {
-    this.setState({ fullname: e.target.value });
-  };
-  handleBusinessNameChange = e => {
-    this.setState({ name: e.target.value });
-  };
-  handlePhoneChange = e => {
-    this.setState({ phone: e.target.value });
-  };
-  handleEmailChange = e => {
-    this.setState({ email: e.target.value });
-  };
-
-  handlePasswordChange = e => {
-    this.setState({ password: e.target.value });
-  };
-
   handleSubmit = e => {
     e.preventDefault();
 
@@ -53,8 +28,6 @@ class Signup extends Component {
           "application/x-www-form-urlencoded";
 
         this.props.history.push("/dashboard");
-        console.log(res);
-        console.log(res.data);
       });
   };
 

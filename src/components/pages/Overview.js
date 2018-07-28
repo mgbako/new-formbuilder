@@ -9,7 +9,6 @@ import axios from "axios";
 import "bootstrap-daterangepicker/daterangepicker.css";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { fetchPendingForms } from "../../actions/workspaceActions";
 import ImagePlaceholder from "../../img/placeholder-face.png";
 
 const MostPopularForms = {
@@ -229,7 +228,4 @@ Overview.propTypes = {
 const mapStateToProps = state => ({
   formResponseData: state.workspaces.formResponsePending
 });
-export default connect(
-  mapStateToProps,
-  { fetchPendingForms }
-)(Overview);
+export default connect(mapStateToProps)(Overview);

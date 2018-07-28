@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { formPreviewData } from "../../actions/workspaceActions";
 
 class Preview extends Component {
   render() {
@@ -29,7 +28,4 @@ const mapStateToProps = state => ({
   formElement: state.workspaces.formElement
 });
 
-export default connect(
-  mapStateToProps,
-  { formPreviewData }
-)(Preview);
+export default connect(mapStateToProps)(Preview);

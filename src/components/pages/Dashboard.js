@@ -5,12 +5,6 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import Team from "../Team/Team";
 import axios from "axios";
-import {
-  fetchProcessedForms,
-  fetchPendingForms,
-  fetchNotedForms,
-  loginUser
-} from "../../actions/workspaceActions";
 
 class Dashboard extends Component {
   addUser = e => {
@@ -78,7 +72,4 @@ class Dashboard extends Component {
 
 const mapStateToProps = state => ({});
 
-export default connect(
-  mapStateToProps,
-  { fetchPendingForms, fetchNotedForms, fetchProcessedForms, loginUser }
-)(Dashboard);
+export default connect(mapStateToProps)(Dashboard);

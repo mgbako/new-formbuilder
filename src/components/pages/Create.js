@@ -6,10 +6,6 @@ import PropTypes from "prop-types";
 import Display from "./Display";
 import axios from "axios";
 import FormBuilder from "../../core/FormBuilder";
-import {
-  getFormIdAndTitle,
-  formPreviewData
-} from "../../actions/workspaceActions";
 
 let uniqueId = 1;
 
@@ -565,10 +561,7 @@ const mapStateToProps = state => ({
   formElement: state.workspaces.formElement
 });
 
-export default connect(
-  mapStateToProps,
-  { getFormIdAndTitle, formPreviewData }
-)(Create);
+export default connect(mapStateToProps)(Create);
 
 const transformInput = (selectedInput, inputTitle) => {
   const currentProperties = { ...selectedInput.displayInputElement.props };

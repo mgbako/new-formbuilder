@@ -3,12 +3,7 @@ import FeatherIcon from "feather-icons-react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import {
-  fetchWorkspaces,
-  getFormIdAndTitle,
-  fetchWorkspaceForm,
-  loginUser
-} from "../../actions/workspaceActions";
+
 import PropTypes from "prop-types";
 
 class Forms extends Component {
@@ -328,7 +323,4 @@ const mapStateToProps = state => ({
   loginData: state.workspaces.loginData
 });
 
-export default connect(
-  mapStateToProps,
-  { fetchWorkspaces, getFormIdAndTitle, fetchWorkspaceForm, loginUser }
-)(Forms);
+export default connect(mapStateToProps)(Forms);

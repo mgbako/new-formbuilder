@@ -19,7 +19,7 @@ export default props => {
             placeholder="Name"
             required
             autoFocus
-            onChange={e => props.setNewMemberDetail({ name: e.target.value })}
+            onChange={e => props.setNewMemberDetail("name", e.target.value)}
           />
           <input
             type="email"
@@ -27,7 +27,7 @@ export default props => {
             className="form-control"
             placeholder="Email address"
             required
-            onChange={e => props.setNewMemberDetail({ email: e.target.value })}
+            onChange={e => props.setNewMemberDetail("email", e.target.value)}
           />
           <input
             type="number"
@@ -35,12 +35,12 @@ export default props => {
             className="form-control"
             placeholder="Phone Number"
             required
-            onChange={e => props.setNewMemberDetail({ phone: e.target.value })}
+            onChange={e => props.setNewMemberDetail("phone", e.target.value)}
           />
 
           <select
             className="form-control"
-            onChange={e => props.setNewMemberDetail({ role: e.target.value })}
+            onChange={e => props.setNewMemberDetail("role", e.target.value)}
           >
             <option value="worker">worker</option>
             <option value="admin">admin</option>

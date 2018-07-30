@@ -18,10 +18,13 @@ export const loginUser = loginDetails => {
         dispatch(saveUser(res.data));
       })
       .catch(err => {
-        const error = err.response.data;
-        dispatch(stopNetworkRequest());
-        dispatch(networkError(error));
-        dispatch(setNotificationMessage(error.details, error.type));
+        if (err.response) {
+          const error = err.response.data;
+          dispatch(stopNetworkRequest());
+          dispatch(setNotificationMessage(error.details, error.type, "error"));
+        }
+        dispatch(networkError(err));
+        dispatch(setNotificationMessage("Bad Network", "error"));
       });
   };
 };
@@ -35,10 +38,13 @@ export const registerBusiness = details => {
         dispatch(saveUser(res.data));
       })
       .catch(err => {
-        const error = err.response.data;
-        dispatch(stopNetworkRequest());
-        dispatch(networkError(error));
-        dispatch(setNotificationMessage(error.details, error.type, "error"));
+        if (err.response) {
+          const error = err.response.data;
+          dispatch(stopNetworkRequest());
+          dispatch(setNotificationMessage(error.details, error.type, "error"));
+        }
+        dispatch(networkError(err));
+        dispatch(setNotificationMessage("Bad Network", "error"));
       });
   };
 };

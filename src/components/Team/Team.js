@@ -12,9 +12,15 @@ class Team extends Component {
     }
   };
 
+  setNewUserDetails = (key, value) => {
+    const newMember = { ...this.state.newMember };
+    newMember[key] = value;
+    this.setState({ newMember });
+  };
+
   createMember = () => {
-    if (this.state.email !== "" || this.state.name !== "") {
-      const { email, name, phone, role } = this.state;
+    if (this.state.newMember.email !== "" || this.state.newMember.name !== "") {
+      const { email, name, phone, role } = this.state.newMember;
       const user = {
         email,
         name,
@@ -71,6 +77,8 @@ class Team extends Component {
                 members={this.props.business.accounts}
                 showCreateMember={this.state.showCreateMember}
                 toggleCreateMember={this.toggleCreateMember}
+                setNewMemberDetail={this.setNewUserDetails}
+                createMember={this.createMember}
               />
             </div>
             <div className="modal-footer" />

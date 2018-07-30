@@ -81,9 +81,12 @@ export const all = businessId => {
         dispatch(saveNotedResponse(not.data));
       })
       .catch(err => {
-        const error = err.response.data;
-        dispatch(networkError(error));
-        dispatch(setNotificationMessage(error.details, error.type, "error"));
+        if (err.response) {
+          const error = err.response.data;
+          dispatch(setNotificationMessage(error.details, error.type, "error"));
+        }
+        dispatch(networkError(err));
+        dispatch(setNotificationMessage("Bad Network", "error"));
       });
   };
 };

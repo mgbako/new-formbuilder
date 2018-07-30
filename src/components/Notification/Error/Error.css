@@ -26,8 +26,8 @@
 }
 
 #HideMe {
-  -webkit-animation: animateNotification 4s forwards;
-  animation: animateNotification 4s forwards;
+  -webkit-animation: animateNotification 7s forwards;
+  animation: animateNotification 7s forwards;
 }
 @keyframes animateNotification {
   0% {

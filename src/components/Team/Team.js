@@ -4,7 +4,25 @@ import Members from "./Members/Members";
 import { connect } from "react-redux";
 class Team extends Component {
   state = {
-    showCreateMember: false
+    showCreateMember: false,
+    newMember: {
+      email: "",
+      name: "",
+      role: "worker"
+    }
+  };
+
+  createMember = () => {
+    if (this.state.email !== "" || this.state.name !== "") {
+      const { email, name, phone, role } = this.state;
+      const user = {
+        email,
+        name,
+        phone,
+        role
+      };
+      console.log(user);
+    }
   };
 
   toggleCreateMember = () => {
@@ -18,7 +36,7 @@ class Team extends Component {
       <div
         id="fsModal"
         className="modal fade"
-        tabindex="-1"
+        tabIndex="-1"
         role="dialog"
         aria-labelledby="myModalLabel"
         aria-hidden="true"
@@ -50,7 +68,7 @@ class Team extends Component {
                 </button>
               </div>
               <Members
-                members={this.props.loginData.business.accounts}
+                members={this.props.business.accounts}
                 showCreateMember={this.state.showCreateMember}
                 toggleCreateMember={this.toggleCreateMember}
               />
@@ -64,7 +82,7 @@ class Team extends Component {
 }
 
 const mapStateToProps = state => ({
-  loginData: state.workspaces.loginData
+  business: state.user.business
 });
 
 export default connect(mapStateToProps)(Team);

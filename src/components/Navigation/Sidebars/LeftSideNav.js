@@ -21,7 +21,7 @@ export const LeftSideNav = props => (
             data-target="#fsModal"
           >
             <FeatherIcon icon="users" size="24" className="icon" />
-            Manage Users
+            Team
           </span>
         </li>
         <li className="nav-item">

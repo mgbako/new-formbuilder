@@ -10,7 +10,6 @@ import {
 const initialState = {
   notificationMessage: "",
   showNotification: false,
-  notificationTitle: "",
   notificationType: "",
   errorDetails: null,
   loading: false,
@@ -25,7 +24,6 @@ export const app = (state = initialState, action) => {
     case NOTIFICATION_MESSAGE:
       return updateState(state, {
         notificationMessage: action.message,
-        notificationTitle: action.title,
         notificationType: action.nType,
         showNotification: true
       });

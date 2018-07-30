@@ -1,6 +1,5 @@
 import { loginUser } from "../../store/actions";
 import { Auth } from "../../hoc/Layouts/Auth";
-
 import React, { Component } from "react";
 import { connect } from "react-redux";
 

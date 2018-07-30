@@ -23,13 +23,13 @@ export class NotificationClass extends Component {
       default:
         break;
     }
-    setTimeout(() => this.props.stop(), 3000);
+    setTimeout(() => this.props.stop(), 9000);
     return notification;
   };
 
   render() {
-    const { message, type, title } = this.props;
-    return this.props.show ? (
+    const { message, type, title, show } = this.props;
+    return show ? (
       <main className={classes.NotificationBody}>
         {this.renderNotification(type, messageTranslator(message), title)}
       </main>
@@ -40,7 +40,6 @@ export class NotificationClass extends Component {
 const mapStateToProps = state => {
   return {
     message: state.app.notificationMessage,
-    title: state.app.notificationTitle,
     type: state.app.notificationType,
     show: state.app.showNotification
   };

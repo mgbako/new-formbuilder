@@ -16,7 +16,7 @@ export default props => (
       </thead>
       <tbody>
         {props.responses.map(response => (
-          <tr key={response.id}>
+          <tr key={response._id}>
             <td>{response.form.name}</td>
             <td>
               {`${response.respondant.lastname} ${

@@ -4,7 +4,31 @@ import Members from "./Members/Members";
 import { connect } from "react-redux";
 class Team extends Component {
   state = {
-    showCreateMember: false
+    showCreateMember: false,
+    newMember: {
+      email: "",
+      name: "",
+      role: "worker"
+    }
+  };
+
+  setNewUserDetails = (key, value) => {
+    const newMember = { ...this.state.newMember };
+    newMember[key] = value;
+    this.setState({ newMember });
+  };
+
+  createMember = () => {
+    if (this.state.newMember.email !== "" || this.state.newMember.name !== "") {
+      const { email, name, phone, role } = this.state.newMember;
+      const user = {
+        email,
+        name,
+        phone,
+        role
+      };
+      console.log(user);
+    }
   };
 
   toggleCreateMember = () => {
@@ -18,7 +42,7 @@ class Team extends Component {
       <div
         id="fsModal"
         className="modal fade"
-        tabindex="-1"
+        tabIndex="-1"
         role="dialog"
         aria-labelledby="myModalLabel"
         aria-hidden="true"
@@ -50,9 +74,11 @@ class Team extends Component {
                 </button>
               </div>
               <Members
-                members={this.props.loginData.business.accounts}
+                members={this.props.business.accounts}
                 showCreateMember={this.state.showCreateMember}
                 toggleCreateMember={this.toggleCreateMember}
+                setNewMemberDetail={this.setNewUserDetails}
+                createMember={this.createMember}
               />
             </div>
             <div className="modal-footer" />
@@ -64,7 +90,7 @@ class Team extends Component {
 }
 
 const mapStateToProps = state => ({
-  loginData: state.workspaces.loginData
+  business: state.user.business
 });
 
 export default connect(mapStateToProps)(Team);

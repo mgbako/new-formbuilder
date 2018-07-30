@@ -37,7 +37,6 @@ class Responses extends Component {
             />
           </div>
         </Tab>
-
         <Tab iconClassName={"Processed"} linkClassName={"custom-link"}>
           <div className="table-responsive">
             <Response
@@ -46,7 +45,6 @@ class Responses extends Component {
             />
           </div>
         </Tab>
-
         <Tab iconClassName={"Pending"} linkClassName={"custom-link"}>
           <div className="table-responsive">
             <Response

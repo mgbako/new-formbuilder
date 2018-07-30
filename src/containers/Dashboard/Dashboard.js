@@ -3,10 +3,9 @@ import "bootstrap-daterangepicker/daterangepicker.css";
 import { Private } from "../../hoc/Layouts/Private";
 import { SwypPartnerApi } from "../../core/api";
 import Team from "../../components/Team/Team";
-
 import React, { Component } from "react";
 import { connect } from "react-redux";
-
+import { all } from "../../store/actions";
 class Dashboard extends Component {
   addUser = e => {
     e.preventDefault();
@@ -36,9 +35,8 @@ class Dashboard extends Component {
   };
 
   componentDidMount() {
-    this.props.fetchNotedForms();
-    this.props.fetchPendingForms();
-    this.props.fetchProcessedForms();
+    console.log(this.props.business);
+    this.props.fetchAllResponse(this.props.business.id);
   }
 
   render() {
@@ -47,17 +45,33 @@ class Dashboard extends Component {
         <div className="row">
           <main id="main" className="col-md-9 ml-sm-auto col-lg-10 px-4">
             <div className="space5" />
-            <Responses />
+            {/* <Responses /> */}
 
             <div className="space10" />
           </main>
         </div>
-        <Team />
+        {/* <Team /> */}
       </Private>
     );
   }
 }
 
-const mapStateToProps = state => ({});
+const mapStateToProps = state => {
+  return {
+    processedResponse: state.response.processed,
+    pendingResponse: state.response.pending,
+    notedResponse: state.response.noted,
+    business: state.user.business
+  };
+};
 
-export default connect(mapStateToProps)(Dashboard);
+const mapDispatchToProps = dispatch => {
+  return {
+    fetchAllResponse: businessId => dispatch(all(businessId))
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Dashboard);

@@ -1,0 +1,24 @@
+.FormSignup {
+  width: 100%;
+  max-width: 500px;
+  padding: 30px;
+  margin: 0 auto;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.Signupbtn {
+  max-width: 200px;
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+}
+.SignupWrapper .form-control {
+  padding: 7px;
+  margin: 10px;
+}
+.SignupTop,
+.SignupBottom {
+  margin-bottom: 30px;
+  margin-top: 10px;
+}

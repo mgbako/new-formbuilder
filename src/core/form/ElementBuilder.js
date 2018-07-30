@@ -1,7 +1,7 @@
 import uuid4 from "uuid4";
 import React from "react";
 
-export default class FormBuilder {
+export default class ElementBuilder {
   static build(type, funcToBind) {
     let formElement = {};
 
@@ -42,12 +42,12 @@ export default class FormBuilder {
     }
     const id = uuid4();
     const description = "";
-    const labelElement = makeLabel(funcToBind, id);
-    return { labelElement, formElement, id, description };
+    const questionElement = makeQuestionElement(funcToBind, id);
+    return { questionElement, formElement, id, description };
   }
 }
 
-const makeLabel = (funcToBind, id) => (
+const makeQuestionElement = (funcToBind, id) => (
   <input
     type="text"
     placeholder="Ask your question"

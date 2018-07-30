@@ -1,42 +1,50 @@
 import { SwypPartnerApi } from "../../core/api";
+import { SAVE_USER } from "./types";
 import {
-  START_NETWORK_REQUEST,
-  END_NETWORK_REQUEST,
-  NETWORK_ERROR,
-  SAVE_USER
-} from "./types";
+  setNotificationMessage,
+  startNetworkRequest,
+  stopNetworkRequest,
+  networkError
+} from "./app";
 
-const startNetworkRequest = () => ({ type: START_NETWORK_REQUEST });
-const endNetworkRequest = () => ({ type: END_NETWORK_REQUEST });
-const networkError = error => ({ type: NETWORK_ERROR, error });
 const saveUser = data => ({ type: SAVE_USER, data });
 
 export const loginUser = loginDetails => {
   return dispatch => {
-    dispatch(startNetworkRequest);
+    dispatch(startNetworkRequest());
     SwypPartnerApi.post("businesses/loginuser", loginDetails)
       .then(res => {
-        dispatch(endNetworkRequest());
+        dispatch(stopNetworkRequest());
         dispatch(saveUser(res.data));
       })
       .catch(err => {
-        dispatch(endNetworkRequest());
-        dispatch(networkError(err));
+        const error = err.response.data;
+        dispatch(stopNetworkRequest());
+        dispatch(networkError(error));
+        dispatch(setNotificationMessage(error.details, error.type));
       });
   };
 };
 
 export const registerBusiness = details => {
   return dispatch => {
-    dispatch(startNetworkRequest);
+    dispatch(startNetworkRequest());
     SwypPartnerApi.post("businesses", details)
       .then(res => {
-        dispatch(endNetworkRequest());
+        dispatch(stopNetworkRequest());
         dispatch(saveUser(res.data));
       })
       .catch(err => {
-        dispatch(endNetworkRequest());
-        dispatch(networkError(err));
+        const error = err.response.data;
+        dispatch(stopNetworkRequest());
+        dispatch(networkError(error));
+        dispatch(
+          setNotificationMessage(
+            "Business name Already Taken",
+            error.type,
+            "error"
+          )
+        );
       });
   };
 };

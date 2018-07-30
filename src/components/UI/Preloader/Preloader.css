@@ -1,0 +1,74 @@
+.PreloaderBody {
+  margin: 0;
+  padding: 0;
+  height: 75vh;
+  z-index: 500;
+}
+
+.PreloaderCenter {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.PreloaderCenter span {
+  position: absolute;
+  width: 21px;
+  height: 21px;
+  border-radius: 10%;
+  background: #262626;
+  animation: animatePreloader 4s infinite ease-in-out;
+}
+
+.PreloaderCenter span:nth-child(1) {
+  background: #00485f;
+  left: -24px;
+  top: -24px;
+  animation-delay: 0.2s;
+}
+
+.PreloaderCenter span:nth-child(2) {
+  background: #00deea;
+  left: 0;
+  top: -24px;
+  animation-delay: 0.4s;
+}
+
+.PreloaderCenter span:nth-child(3) {
+  background: #00deea;
+  left: -24px;
+  top: 0;
+  animation-delay: 0.8s;
+}
+
+.PreloaderCenter span:nth-child(4) {
+  background: #00485f;
+  left: 0;
+  top: 0;
+  animation-delay: 0.6s;
+}
+
+@keyframes animatePreloader {
+  0% {
+    transform: rotateY(0deg);
+  }
+
+  20% {
+    transform: rotateY(360deg);
+  }
+
+  40% {
+    transform: rotateX(100deg);
+  }
+  60% {
+    transform: rotateX(0deg);
+  }
+
+  80% {
+    transform: rotateX(360deg);
+  }
+  80% {
+    transform: rotateY(100deg);
+  }
+}

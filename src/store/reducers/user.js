@@ -13,7 +13,7 @@ export const user = (state = initialState, action) => {
       return updateState(state, {
         business: action.data.business,
         token: action.data.token,
-        user: action.data.user
+        currentUser: action.data.user
       });
 
     default:

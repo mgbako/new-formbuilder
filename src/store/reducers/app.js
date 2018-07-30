@@ -1,14 +1,20 @@
 import { updateState } from "../utility";
 import {
+  NOTIFICATION_MESSAGE,
   START_NETWORK_REQUEST,
-  END_NETWORK_REQUEST,
+  STOP_NETWORK_REQUEST,
+  END_NOTIFICATION,
   NETWORK_ERROR
 } from "../actions";
 
 const initialState = {
+  notificationMessage: "",
+  showNotification: false,
+  notificationTitle: "",
+  notificationType: "",
+  errorDetails: null,
   loading: false,
-  error: false,
-  errorMessage: null
+  error: false
 };
 
 export const app = (state = initialState, action) => {
@@ -16,10 +22,21 @@ export const app = (state = initialState, action) => {
     case NETWORK_ERROR:
       return updateState(state, { errorMessage: action.error });
 
+    case NOTIFICATION_MESSAGE:
+      return updateState(state, {
+        notificationMessage: action.message,
+        notificationTitle: action.title,
+        notificationType: action.nType,
+        showNotification: true
+      });
+
     case START_NETWORK_REQUEST:
       return updateState(state, { loading: true });
 
-    case END_NETWORK_REQUEST:
+    case END_NOTIFICATION:
+      return updateState(state, { showNotification: false });
+
+    case STOP_NETWORK_REQUEST:
       return updateState(state, { loading: false });
 
     default:

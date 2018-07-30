@@ -62,148 +62,6 @@ class Create extends Component {
     this.setState({ font_size: e.target.value + "px" });
   }
 
-  handleTextChange = e => {
-    let id = e.target.id;
-    const inputs = this.state.input;
-    const inputIndex = inputs.findIndex(input => input.id === id);
-    const selectedInput = transformInput(inputs[inputIndex], e.target.value);
-    inputs[inputIndex] = selectedInput;
-    this.setState({ input: inputs });
-  };
-
-  buildElement(type) {
-    const { id, description, labelElement, formElement } = FormBuilder.build(
-      type,
-      this.handleTextChange
-    );
-    const inputs = this.state.input;
-    const input = {
-      item: labelElement,
-      label: description,
-      displayInputElement: formElement,
-      id
-    };
-    inputs.push(input);
-    this.setState({ input: inputs });
-  }
-
-  sectionTitle() {
-    const input = this.state.input;
-    const item = (
-      <input
-        type="text"
-        name="title"
-        placeholder="Enter text here"
-        id={uniqueId++}
-        className="InputDiv form-control"
-        onChange={this.onChangeFunc.bind(this)}
-      />
-    );
-    const displayInputElement = <h3 />;
-    const label = "";
-    const id = uniqueId;
-    this.setState({
-      input: input.concat({ item, label, displayInputElement, id })
-    });
-  }
-
-  longText() {
-    const input = this.state.input;
-    const item = (
-      <input
-        type="text"
-        placeholder="Enter text here"
-        id={uniqueId++}
-        className="InputDiv form-control"
-        onChange={this.handleTextChange.bind(this)}
-      />
-    );
-    const displayInputElement = (
-      <textarea className="form-control" placeholder="Type your answer here" />
-    );
-    const label = this.state.label;
-    const id = uniqueId;
-    this.setState({
-      input: input.concat({ item, label, displayInputElement, id })
-    });
-  }
-
-  email() {
-    const input = this.state.input;
-    const item = (
-      <input
-        type="text"
-        placeholder="Enter text here"
-        id={uniqueId++}
-        className="InputDiv form-control"
-        onChange={this.handleTextChange.bind(this)}
-      />
-    );
-    const displayInputElement = (
-      <input
-        type="email"
-        placeholder="type your answer here"
-        className=" form-control"
-      />
-    );
-    const label = this.state.label;
-    const id = uniqueId;
-    this.setState({
-      input: input.concat({ item, label, displayInputElement, id })
-    });
-  }
-
-  number() {
-    const input = this.state.input;
-    const item = (
-      <input
-        type="text"
-        placeholder="Could you please send us your phone number?"
-        id={uniqueId++}
-        className="InputDiv form-control"
-        onChange={this.handleTextChange.bind(this)}
-      />
-    );
-    const displayInputElement = (
-      <input
-        type="number"
-        placeholder=" +234 080 0000 0000"
-        className=" form-control"
-      />
-    );
-    const label = this.state.label;
-    const id = uniqueId;
-    this.setState({
-      input: input.concat({ item, label, displayInputElement, id })
-    });
-  }
-
-  bvn() {
-    const input = this.state.input;
-    const item = (
-      <input
-        type="text"
-        placeholder="Could you please send us your BVN?"
-        id={uniqueId++}
-        className="InputDiv form-control"
-        onChange={this.handleTextChange.bind(this)}
-      />
-    );
-    const displayInputElement = (
-      <input
-        type="number"
-        placeholder="Enter your BVN here"
-        className=" form-control"
-        required
-      />
-    );
-    const label = this.state.label;
-    const id = uniqueId;
-    this.setState({
-      input: input.concat({ item, label, displayInputElement, id })
-    });
-  }
-
   yesNo() {
     const input = this.state.input;
     const item = (
@@ -227,7 +85,6 @@ class Create extends Component {
         </span>
       </div>
     );
-    console.log(displayInputElement.props.children);
     const label = this.state.label;
     const id = uniqueId;
     this.setState({
@@ -320,7 +177,6 @@ class Create extends Component {
     const formTitle = this.props.createFormData.title;
     const workspaceId = this.props.createFormData.id;
     this.setState({ formTitle: formTitle, workspaceId: workspaceId });
-    console.log(this.props);
   }
 
   render() {
@@ -562,35 +418,3 @@ const mapStateToProps = state => ({
 });
 
 export default connect(mapStateToProps)(Create);
-
-const transformInput = (selectedInput, inputTitle) => {
-  const currentProperties = { ...selectedInput.displayInputElement.props };
-  const typeOfInput = selectedInput.displayInputElement.type;
-  let createdElement = {};
-  switch (typeOfInput) {
-    case "input":
-      currentProperties.name = inputTitle.toLowerCase();
-      createdElement = <input {...currentProperties} />;
-      break;
-    case "textarea":
-      currentProperties.name = inputTitle.toLowerCase();
-      createdElement = <textarea {...currentProperties} />;
-      break;
-
-    // case "div":
-    //
-    //     let arrayLength = selectedInput.displayInputElement.length;
-    //
-    //     for (let i = 0; i < arrayLength; i++) {
-    //       currentProperties.children.name = inputTitle;
-    //       createdElement = <input {...currentProperties} />;
-    //     }
-    //     break;
-
-    default:
-      createdElement = selectedInput.displayInputElement;
-  }
-  selectedInput.label = inputTitle;
-  selectedInput.displayInputElement = createdElement;
-  return selectedInput;
-};

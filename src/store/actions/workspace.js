@@ -1,7 +1,7 @@
 import { SwypPartnerApi } from "../../core/api";
 import {
   START_NETWORK_REQUEST,
-  END_NETWORK_REQUEST,
+  STOP_NETWORK_REQUEST,
   SAVE_WORKSPACES,
   DELETE_WORKSPACE,
   UPDATE_WORKSPACES,
@@ -10,7 +10,7 @@ import {
 
 const updateWorkspaces = workspace => ({ type: UPDATE_WORKSPACES, workspace });
 const startNetworkRequest = () => ({ type: START_NETWORK_REQUEST });
-const endNetworkRequest = () => ({ type: END_NETWORK_REQUEST });
+const endNetworkRequest = () => ({ type: STOP_NETWORK_REQUEST });
 const networkError = error => ({ type: NETWORK_ERROR, error });
 const removeWorkspace = id => ({ type: DELETE_WORKSPACE, id });
 const saveWorkspaces = collection => ({

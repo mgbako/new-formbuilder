@@ -1,7 +1,7 @@
 import { saveStateToStorage, loadStateFromStorage } from "../utils";
+import { combineReducers, createStore, applyMiddleware } from "redux";
 import { workspace, form, user, app } from "./reducers";
-import { combineReducers, createStore } from "redux";
-import { preserveNewForm } from "./actions";
+import thunkMiddleware from "redux-thunk";
 
 const reducers = combineReducers({
   workspace,
@@ -12,17 +12,12 @@ const reducers = combineReducers({
 
 const stateFromStore = loadStateFromStorage();
 
-const store = createStore(reducers, stateFromStore);
+const store = createStore(
+  reducers,
+  stateFromStore,
+  applyMiddleware(thunkMiddleware)
+);
 
 store.subscribe(() => saveStateToStorage(store.getState()));
-
-store.subscribe(() => console.log(store.getState()));
-
-store.dispatch(
-  preserveNewForm({
-    name: "hello man",
-    howIsItGoing: "Getting my mental toughness on"
-  })
-);
 
 export default store;

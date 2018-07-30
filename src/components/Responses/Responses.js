@@ -4,7 +4,7 @@ import AddNote from "./AddNote/AddNote";
 import { connect } from "react-redux";
 import Tabs from "../UI/Tabs/Tabs";
 import Tab from "../UI/Tabs/Tab";
-import Aux from "../../Hoc/Aux";
+import Aux from "../../hoc/Aux";
 
 class Responses extends Component {
   state = {

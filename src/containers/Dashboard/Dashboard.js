@@ -41,17 +41,14 @@ class Dashboard extends Component {
   render() {
     return (
       <Private>
-        <div className="row">
-          <main id="main" className="col-md-9 ml-sm-auto col-lg-10 px-4">
-            <div className="space5" />
-            <Responses
-              pending={this.props.pendingResponse}
-              processed={this.props.processedResponse}
-              noted={this.props.notedResponse}
-            />
-
-            <div className="space10" />
-          </main>
+        <div className="col-md-9 ml-sm-auto col-lg-10 px-4">
+          <div className="space5" />
+          <Responses
+            pending={this.props.pendingResponse}
+            processed={this.props.processedResponse}
+            noted={this.props.notedResponse}
+          />
+          <div className="space10" />
         </div>
         {/* <Team /> */}
       </Private>

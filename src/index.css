@@ -3,6 +3,7 @@ body {
   padding: 0;
   font-family: sans-serif;
 }
+
 #main {
   min-height: 80vh;
 }
@@ -115,7 +116,7 @@ div[id^="font-picker"] .dropdown-button {
 }
 
 .footer {
-  position: sticky;
+  position: absolute;
   bottom: 0;
   width: 100%;
   height: 60px;

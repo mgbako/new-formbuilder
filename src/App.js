@@ -5,15 +5,17 @@ import Footer from "./components/Footer";
 import Router from "./Router";
 import Aux from "./hoc/Aux";
 import React from "react";
-import "./App.css";
+import Classes from "./App.css";
 
 export default () => (
-  <Aux>
-    <Header />
-    <ScrollToTop>
-      <Router />
-    </ScrollToTop>
-    <Notification />
-    <Footer />
-  </Aux>
+  <div className={Classes.Pr}>
+    <Aux>
+      <Header />
+      <ScrollToTop>
+        <Router />
+      </ScrollToTop>
+      <Notification />
+      <Footer />
+    </Aux>
+  </div>
 );

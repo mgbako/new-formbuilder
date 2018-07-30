@@ -2,6 +2,7 @@ import { NewWorkspace } from "../../components/Workspaces/NewWorkspace";
 import { Private } from "../../hoc/Layouts/Private";
 import FeatherIcon from "feather-icons-react";
 import React, { Component } from "react";
+import Classes from "./Workspaces.css";
 
 export default class Workspaces extends Component {
   state = {
@@ -29,12 +30,12 @@ export default class Workspaces extends Component {
           data-toggle="modal"
           data-target="#newWorkspace"
         >
-          <FeatherIcon icon="plus" size="18" className="icon1" />
+          <FeatherIcon icon="plus" size="18" className={Classes.Icon} />
           New Workspace
         </button>
-        <div className="workspace-section1 row">
-          <div className="form-category shadow">
-            <div className="vertical-align">Accounts (Corporate)</div>
+        <div className={`row ${Classes.Container}`}>
+          <div className={`shadow ${Classes.FormCategory}`}>
+            <div className={Classes.VerticalAlign}>Accounts (Corporate)</div>
           </div>
         </div>
 

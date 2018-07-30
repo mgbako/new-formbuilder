@@ -10,6 +10,7 @@ import "bootstrap-daterangepicker/daterangepicker.css";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import ImagePlaceholder from "../../img/placeholder-face.png";
+import Classes from "./Overview.css";
 
 const MostPopularForms = {
   labels: [
@@ -175,7 +176,7 @@ class Overview extends Component {
                       <img
                         src={ImagePlaceholder}
                         alt=""
-                        className="ImagePlaceholder"
+                        className={Classes.ImagePlaceholder}
                       />
                       {note._id}
                     </td>

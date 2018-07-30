@@ -3,7 +3,7 @@ import { FormDisplay } from "../../components/Forms/FormDisplay";
 import { FormOptions } from "../../components/Forms/FormOptions";
 import { FormSetting } from "../../components/Forms/FormSetting";
 import ElementBuilder from "../../core/form/ElementBuilder";
-
+import Classes from "./FormBuilder.css";
 import { Private } from "../../hoc/Layouts/Private";
 import React, { Component } from ".react";
 
@@ -71,7 +71,7 @@ export class FormBuilder extends Component {
     };
     return (
       <Private>
-        <div className="topMenu">
+        <div className={Classes.TopMenu}>
           <button
             className="btn btn-secondary float-right"
             type="button"
@@ -87,7 +87,7 @@ export class FormBuilder extends Component {
             Save
           </button>
         </div>
-        <div className="row container2">
+        <div className={`row ${Classes.Section}`}>
           <FormOptions
             setFontSize={this.handleFontSizeChange}
             prepareElement={this.setupElement}

@@ -1,5 +1,6 @@
 import { SwypPartnerApi } from "../../core/api";
 import React, { Component } from "react";
+import Classes from "./ForgotPassword.css";
 
 class ForgotPassword extends Component {
   state = {
@@ -27,7 +28,7 @@ class ForgotPassword extends Component {
       <main id="main" className="container">
         <div className="space10" />
 
-        <form className="form-signin card" onSubmit={this.handleSubmit}>
+        <form className={`row ${Classes.Section}`} onSubmit={this.handleSubmit}>
           <div className="card-body">
             <p>
               Please fill out your email. A link to reset password will be sent

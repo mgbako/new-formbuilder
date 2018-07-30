@@ -1,0 +1,12 @@
+.TopMenu {
+  padding: 30px 15px;
+  margin-bottom: 5px;
+}
+
+.Container {
+  width: 98%;
+  margin-left: 1%;
+  height: 100%;
+  position: relative;
+  display: flex;
+}

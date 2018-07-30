@@ -2,6 +2,7 @@ import { NewForm } from "../../components/Forms/NewForm";
 import { Private } from "../../hoc/Layouts/Private";
 import FeatherIcon from "feather-icons-react";
 import React, { Component } from "react";
+import Classes from "./Forms.css";
 
 export default class Forms extends Component {
   state = {
@@ -32,12 +33,12 @@ export default class Forms extends Component {
           data-toggle="modal"
           data-target="#AddForm"
         >
-          <FeatherIcon icon="plus" size="18" className="icon1" />
+          <FeatherIcon icon="plus" size="18" className={Classes.Icon} />
           New Form
         </button>
-        <div className="workspace-section1 row">
-          <div className="bank-form shadow">
-            <div className="vertical-align "> Dormant Account</div>
+        <div className={`row ${Classes.Section}`}>
+          <div className={`shadow ${Classes.BankForm}`}>
+            <div className={Classes.VerticalAlign}> Dormant Account</div>
           </div>
         </div>
         <NewForm

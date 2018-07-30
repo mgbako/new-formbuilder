@@ -1,5 +1,6 @@
 import { SwypPartnerApi } from "../../core/api";
 import React, { Component } from "react";
+import Classes from "./ResetPassword.css";
 
 class ResetPassword extends Component {
   state = {
@@ -26,8 +27,10 @@ class ResetPassword extends Component {
     return (
       <main id="main" className="container">
         <div className="space10" />
-
-        <form className="form-signin card" onSubmit={this.handleSubmit}>
+        <form
+          className={`card ${Classes.FormSignin}`}
+          onSubmit={this.handleSubmit}
+        >
           <div className="card-body">
             <h1 className="h3 mb-3 font-weight-normal">
               Please choose your new password:

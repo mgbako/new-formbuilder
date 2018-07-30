@@ -35,7 +35,6 @@ class Dashboard extends Component {
   };
 
   componentDidMount() {
-    console.log(this.props.business);
     this.props.fetchAllResponse(this.props.business.id);
   }
 
@@ -45,7 +44,11 @@ class Dashboard extends Component {
         <div className="row">
           <main id="main" className="col-md-9 ml-sm-auto col-lg-10 px-4">
             <div className="space5" />
-            {/* <Responses /> */}
+            <Responses
+              pending={this.props.pendingResponse}
+              processed={this.props.processedResponse}
+              noted={this.props.notedResponse}
+            />
 
             <div className="space10" />
           </main>

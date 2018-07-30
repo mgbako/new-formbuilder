@@ -1,7 +1,7 @@
+import { Preloader } from "../UI/Preloader";
 import Response from "./Response/Response";
 import React, { Component } from "react";
 import AddNote from "./AddNote/AddNote";
-import { connect } from "react-redux";
 import Tabs from "../UI/Tabs/Tabs";
 import Tab from "../UI/Tabs/Tab";
 import Aux from "../../hoc/Aux";
@@ -24,46 +24,49 @@ class Responses extends Component {
     this.setState({ selectedResponseId: e.target.id });
   };
 
+  resultToRender = result => {
+    return !this.props.pending.count ? (
+      <Preloader />
+    ) : (
+      <Tabs>
+        <Tab iconClassName={"Unread"} linkClassName={"custom-link"}>
+          <div className="table-responsive">
+            <Response
+              responses={this.props.pending.result}
+              selectResponse={this.pickResponse}
+            />
+          </div>
+        </Tab>
+
+        <Tab iconClassName={"Processed"} linkClassName={"custom-link"}>
+          <div className="table-responsive">
+            <Response
+              responses={this.props.processed.result}
+              selectResponse={this.pickResponse}
+            />
+          </div>
+        </Tab>
+
+        <Tab iconClassName={"Pending"} linkClassName={"custom-link"}>
+          <div className="table-responsive">
+            <Response
+              responses={this.props.noted.result}
+              selectResponse={this.pickResponse}
+            />
+          </div>
+        </Tab>
+      </Tabs>
+    );
+  };
+
   render() {
     return (
       <Aux>
-        <Tabs>
-          <Tab iconClassName={"Unread"} linkClassName={"custom-link"}>
-            <div className="table-responsive">
-              <Response
-                responses={this.props.pending.result}
-                selectResponse={this.pickResponse}
-              />
-            </div>
-          </Tab>
-          <Tab iconClassName={"Pending"} linkClassName={"custom-link"}>
-            <div className="table-responsive">
-              <Response
-                responses={this.props.noted.result}
-                selectResponse={this.pickResponse}
-              />
-            </div>
-          </Tab>
-
-          <Tab iconClassName={"Processed"} linkClassName={"custom-link"}>
-            <div className="table-responsive">
-              <Response
-                responses={this.props.processed.result}
-                selectResponse={this.pickResponse}
-              />
-            </div>
-          </Tab>
-        </Tabs>
+        {this.resultToRender(this.props.pending)}
         <AddNote newNote={this.newNote} createNode={this.createNote} />
       </Aux>
     );
   }
 }
 
-const mapStateToProps = state => ({
-  pending: state.workspaces.formResponsePending,
-  noted: state.workspaces.formResponseNoted,
-  processed: state.workspaces.formResponseNoted
-});
-
-export default connect(mapStateToProps)(Responses);
+export default Responses;

@@ -38,13 +38,7 @@ export const registerBusiness = details => {
         const error = err.response.data;
         dispatch(stopNetworkRequest());
         dispatch(networkError(error));
-        dispatch(
-          setNotificationMessage(
-            "Business name Already Taken",
-            error.type,
-            "error"
-          )
-        );
+        dispatch(setNotificationMessage(error.details, error.type, "error"));
       });
   };
 };

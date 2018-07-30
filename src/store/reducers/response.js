@@ -6,19 +6,19 @@ import {
 } from "../actions";
 
 const initialState = {
-  processed: [],
-  pending: [],
-  noted: []
+  processed: { result: [], count: 0, pages: 0 },
+  pending: { result: [], count: 0, pages: 0 },
+  noted: { result: [], count: 0, pages: 0 }
 };
 
 export const response = (state = initialState, action) => {
   switch (action.type) {
     case SAVE_PROCESSED_RESPONSES:
-      return updateState(state, { processed: action.collection });
+      return updateState(state, { processed: action.data });
     case SAVE_PENDING_RESPONSES:
-      return updateState(state, { pending: action.collection });
+      return updateState(state, { pending: action.data });
     case SAVE_NOTED_RESPONSES:
-      return updateState(state, { noted: action.collection });
+      return updateState(state, { noted: action.data });
     default:
       return state;
   }

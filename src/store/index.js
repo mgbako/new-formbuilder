@@ -20,6 +20,5 @@ const store = createStore(
 );
 
 store.subscribe(() => saveStateToStorage(store.getState()));
-store.subscribe(() => console.log(store.getState()));
 
 export default store;

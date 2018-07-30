@@ -8,6 +8,7 @@ import Preview from "./containers/Preview/Preview";
 import Signup from "./containers/Signup/Signup";
 import Forms from "./containers/Forms/Forms";
 import Login from "./containers/Login/Login";
+import { SwypPartnerApi } from "./core/api";
 import store from "./store";
 import React from "react";
 
@@ -17,6 +18,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
     render={props => {
       const state = store.getState();
       const token = state.user.token;
+      SwypPartnerApi.defaults.headers.common["Authorization"] = token;
       return token ? <Component {...props} /> : <Redirect to="/" />;
     }}
   />

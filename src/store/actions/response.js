@@ -11,19 +11,19 @@ import {
   SAVE_NOTED_RESPONSES
 } from "./types";
 
-const saveProcessedResponses = collection => ({
+const saveProcessedResponses = data => ({
   type: SAVE_PROCESSED_RESPONSES,
-  collection
+  data
 });
 
-const savePendingResponse = collection => ({
+const savePendingResponse = data => ({
   type: SAVE_PENDING_RESPONSES,
-  collection
+  data
 });
 
-const saveNotedResponse = collection => ({
+const saveNotedResponse = data => ({
   type: SAVE_NOTED_RESPONSES,
-  collection
+  data
 });
 
 export const fetchProcessedResponse = businessId => {
@@ -72,10 +72,18 @@ export const all = businessId => {
   const pendingRequest = SwypPartnerApi.get(pendingUrl);
   const notedRequest = SwypPartnerApi.get(notedUrl);
   return dispatch => {
+    dispatch(startNetworkRequest());
     Promise.all([processedRequest, pendingRequest, notedRequest])
-      .then(res => {
-        console.log(res.data);
+      .then(([pro, pen, not]) => {
+        dispatch(stopNetworkRequest());
+        dispatch(saveProcessedResponses(pro.data));
+        dispatch(savePendingResponse(pen.data));
+        dispatch(saveNotedResponse(not.data));
       })
-      .catch(err => console.error(err.response.data));
+      .catch(err => {
+        const error = err.response.data;
+        dispatch(networkError(error));
+        dispatch(setNotificationMessage(error.details, error.type, "error"));
+      });
   };
 };

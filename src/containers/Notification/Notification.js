@@ -1,6 +1,7 @@
 import { Success } from "../../components/Notification/Success";
 import { Error } from "../../components/Notification/Error";
 import { endNotification } from "../../store/actions";
+import { messageTranslator } from "../../utils";
 import React, { Component } from "react";
 import classes from "./Notification.css";
 import { connect } from "react-redux";
@@ -30,7 +31,7 @@ export class NotificationClass extends Component {
     const { message, type, title } = this.props;
     return this.props.show ? (
       <main className={classes.NotificationBody}>
-        {this.renderNotification(type, message, title)}
+        {this.renderNotification(type, messageTranslator(message), title)}
       </main>
     ) : null;
   }

@@ -8,6 +8,7 @@ import Preview from "./containers/Preview/Preview";
 import Signup from "./containers/Signup/Signup";
 import Forms from "./containers/Forms/Forms";
 import Login from "./containers/Login/Login";
+import Team from "./containers/Team/Team";
 import { SwypPartnerApi } from "./core/api";
 import store from "./store";
 import React from "react";
@@ -33,6 +34,7 @@ export default () => (
     <PrivateRoute exact path="/overview" component={Overview} />
     <PrivateRoute exact path="/preview" component={Preview} />
     <PrivateRoute exact path="/forms" component={Forms} />
+    <PrivateRoute exact path="/teams" component={Team} />
     <Route exact path="/signup" component={Signup} />
     <Route exact path="/" component={Login} />
   </Switch>

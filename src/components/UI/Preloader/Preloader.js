@@ -4,7 +4,7 @@ import { Aux } from "../../../hoc/Auxilary";
 import React from "react";
 
 export const Preloader = props => (
-  <div>
+  <Aux>
     <BackDrop click={props.click} show={props.show} />
     <div id="main" className={classes.PreloaderClass}>
       <div className={classes.PreloaderCenter}>
@@ -14,5 +14,5 @@ export const Preloader = props => (
         <span />
       </div>
     </div>
-  </div>
+  </Aux>
 );

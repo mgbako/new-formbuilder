@@ -22,28 +22,32 @@ export default class Workspaces extends Component {
   render() {
     return (
       <Private>
-        <h2 className="text-center">Workspace</h2>
+        <div className="col-md-9 ml-sm-auto col-lg-10 px-4">
+          <div className="space5" />
+          <h2 className="text-center">Workspace</h2>
 
-        <button
-          type="button"
-          className="btn bg-secondary btn-md text-light"
-          data-toggle="modal"
-          data-target="#newWorkspace"
-        >
-          <FeatherIcon icon="plus" size="18" className={Classes.Icon} />
-          New Workspace
-        </button>
-        <div className={`row ${Classes.Container}`}>
-          <div className={`shadow ${Classes.FormCategory}`}>
-            <div className={Classes.VerticalAlign}>Accounts (Corporate)</div>
+          <button
+            type="button"
+            className="btn bg-secondary btn-md text-light"
+            data-toggle="modal"
+            data-target="#newWorkspace"
+          >
+            <FeatherIcon icon="plus" size="18" className={Classes.Icon} />
+            New Workspace
+          </button>
+          <div className={`row ${Classes.Container}`}>
+            <div className={`shadow ${Classes.FormCategory}`}>
+              <div className={Classes.VerticalAlign}>Accounts (Corporate)</div>
+            </div>
           </div>
-        </div>
 
-        <NewWorkspace
-          name={this.state.newWorkspaceName}
-          changeName={this.handleNewWorkspaceNameChange}
-          createNewWorkspace={this.createNewWorkspace}
-        />
+          <NewWorkspace
+            name={this.state.newWorkspaceName}
+            changeName={this.handleNewWorkspaceNameChange}
+            createNewWorkspace={this.createNewWorkspace}
+          />
+          <div className="space10" />
+        </div>
       </Private>
     );
   }

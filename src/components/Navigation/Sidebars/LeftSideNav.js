@@ -14,15 +14,16 @@ export const LeftSideNav = props => (
         </li>
 
         <li className="nav-item">
-          <span
-            className="nav-link"
-            href="#"
-            data-toggle="modal"
-            data-target="#fsModal"
-          >
+          <Link to="/teams" className="nav-link active" href="#">
             <FeatherIcon icon="users" size="24" className="icon" />
             Team
-          </span>
+          </Link>
+        </li>
+        <li className="nav-item">
+          <Link to="/workspaces" className="nav-link active" href="#">
+            <FeatherIcon icon="users" size="24" className="icon" />
+            Workspaces
+          </Link>
         </li>
         <li className="nav-item">
           <Link to="/overview" className="nav-link">

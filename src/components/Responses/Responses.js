@@ -36,7 +36,6 @@ class Responses extends Component {
   getResponseToShow = e => {
     e.preventDefault();
     this.setState({ responseToShow: e.target.value });
-    console.log(this.state.responseToShow);
   };
 
   responseSwitch(responseToShow) {

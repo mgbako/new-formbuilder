@@ -8,7 +8,7 @@ import React from "react";
 import Classes from "./App.css";
 
 export default () => (
-  <div className={Classes.Pr}>
+  <Aux className={Classes.Pr}>
     <div>
       <Header />
       <ScrollToTop>
@@ -17,5 +17,5 @@ export default () => (
       <Notification />
       <Footer />
     </div>
-  </div>
+  </Aux>
 );

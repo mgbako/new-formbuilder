@@ -3,11 +3,11 @@ import { FormDisplay } from "../../components/Forms/FormDisplay";
 import { FormOptions } from "../../components/Forms/FormOptions";
 import { FormSetting } from "../../components/Forms/FormSetting";
 import ElementBuilder from "../../core/form/ElementBuilder";
-import Classes from "./FormBuilder.css";
 import { Private } from "../../hoc/Layouts/Private";
-import React, { Component } from ".react";
+import React, { Component } from "react";
+import Classes from "./FormBuilder.css";
 
-export class FormBuilder extends Component {
+export default class FormBuilder extends Component {
   state = {
     formInputs: [
       {
@@ -71,34 +71,39 @@ export class FormBuilder extends Component {
     };
     return (
       <Private>
-        <div className={Classes.TopMenu}>
-          <button
-            className="btn btn-secondary float-right"
-            type="button"
-            onClick={this.previewForm}
-          >
-            preview
-          </button>
-          <button
-            className="btn btn-info float-right"
-            type="button"
-            onClick={this.saveForm}
-          >
-            Save
-          </button>
-        </div>
-        <div className={`row ${Classes.Section}`}>
-          <FormOptions
-            setFontSize={this.handleFontSizeChange}
-            prepareElement={this.setupElement}
-            changeFont={this.handleFontChange}
-          />
-          <FormSetting inputs={this.state.formInputs} />
-          <FormDisplay
-            showSubmit={this.state.showFormSubmit}
-            style={displayStyle}
-            inputs={this.state.formInputs}
-          />
+        <div className="col-md-9 ml-sm-auto col-lg-10 px-4">
+          <div className="space5" />
+          <h2 className="text-center">Forms </h2>
+
+          <div className={Classes.TopMenu}>
+            <button
+              className="btn btn-secondary float-right"
+              type="button"
+              onClick={this.previewForm}
+            >
+              preview
+            </button>
+            <button
+              className="btn btn-info float-right"
+              type="button"
+              onClick={this.saveForm}
+            >
+              Save
+            </button>
+          </div>
+          <div className={`row ${Classes.Section}`}>
+            <FormOptions
+              setFontSize={this.handleFontSizeChange}
+              prepareElement={this.setupElement}
+              changeFont={this.handleFontChange}
+            />
+            {/* <FormSetting inputs={this.state.formInputs} /> */}
+            {/* <FormDisplay
+              showSubmit={this.state.showFormSubmit}
+              style={displayStyle}
+              inputs={this.state.formInputs}
+            /> */}
+          </div>
         </div>
       </Private>
     );

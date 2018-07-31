@@ -13,8 +13,14 @@ export const NewForm = props => (
         <div className="modal-body">
           <form onSubmit={props.createForm}>
             <div className="form-group">
-              <label for="sel1">Select Workspace:</label>
-              <select onChange={props.handleWorkspaceSelected} />
+              <label>Select Workspace:</label>
+              <select ref={input => props.handleWorkspaceSelect(input)}>
+                {props.workspaces.map(workspace => (
+                  <option key={workspace.id} value={workspace.id}>
+                    {workspace.name}
+                  </option>
+                ))}
+              </select>
             </div>
             <input
               type="text"
@@ -22,7 +28,6 @@ export const NewForm = props => (
               className="form-control"
               placeholder="Form title"
               required
-              value={props.formName}
               onChange={props.handleNameChange}
             />
             <div className="space2" />
@@ -30,6 +35,7 @@ export const NewForm = props => (
               className="btn btn-lg btn-secondary float-right"
               type="submit"
               data-dismiss="modal"
+              onClick={props.createForm}
             >
               Submit
             </button>

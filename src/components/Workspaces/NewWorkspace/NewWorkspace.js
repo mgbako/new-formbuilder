@@ -19,7 +19,7 @@ export const NewWorkspace = props => (
               className="form-control"
               placeholder="Name your new workstation"
               required
-              autofocus
+              autoFocus
               value={props.name}
               onChange={props.changeName}
             />

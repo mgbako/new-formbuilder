@@ -9,7 +9,7 @@ import {
   SAVE_FORMS
 } from "./types";
 
-const saveForms = collection => ({ type: SAVE_FORMS, data: collection });
+const saveForms = collection => ({ type: SAVE_FORMS, collection });
 const startNetworkRequest = () => ({ type: START_NETWORK_REQUEST });
 const endNetworkRequest = () => ({ type: STOP_NETWORK_REQUEST });
 const networkError = error => ({ type: NETWORK_ERROR, error });
@@ -18,7 +18,7 @@ const updateForms = form => ({ type: UPDATE_FORMS, form });
 export const fetchForms = workspaceId => {
   return dispatch => {
     dispatch(startNetworkRequest());
-    SwypPartnerApi.get(`forms/workspace/${workspaceId}`)
+    SwypPartnerApi.get(`forms/workspaces/${workspaceId}`)
       .then(res => {
         dispatch(endNetworkRequest());
         dispatch(saveForms(res.data));

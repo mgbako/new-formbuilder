@@ -1,10 +1,13 @@
 import { NewForm } from "../../components/Forms/NewForm";
+import { Preloader } from "../../components/UI/Preloader";
+import { FormList } from "../../components/FormList";
 import { Private } from "../../hoc/Layouts/Private";
-import FeatherIcon from "feather-icons-react";
+import { fetchForms } from "../../store/actions";
 import React, { Component } from "react";
-import Classes from "./Forms.css";
+import queryString from "query-string";
+import { connect } from "react-redux";
 
-export default class Forms extends Component {
+export class Forms extends Component {
   state = {
     newForm: { name: "", workspace: "" }
   };
@@ -15,13 +18,30 @@ export default class Forms extends Component {
     this.setState({ newForm });
   };
 
-  handleWorkspaceSelect = e => {
-    const newForm = { ...this.state.newForm };
-    newForm.workspace = e.target.value;
-    this.setState({ newForm });
+  handleWorkspaceSelect = selectNode => {
+    if (selectNode) {
+      this.newFormWorkspaceSelected = selectNode;
+    }
   };
 
-  createForm = () => {};
+  componentDidMount() {
+    const location = this.props.location;
+    const { workspace } = queryString.parse(location.search);
+    this.props.fetchForms(workspace);
+  }
+
+  resultToRender = () =>
+    this.props.loading && !this.props.all.length ? (
+      <Preloader />
+    ) : (
+      <FormList forms={this.props.all} />
+    );
+
+  createNewForm = () => {
+    const form = { ...this.state.newForm };
+    form.workspace = this.newFormWorkspaceSelected.value;
+    this.props.history.push("/formbuilder", { form });
+  };
 
   render() {
     return (
@@ -29,21 +49,11 @@ export default class Forms extends Component {
         <div className="col-md-9 ml-sm-auto col-lg-10 px-4">
           <div className="space5" />
           <h2 className="text-center">Forms </h2>
-          <button
-            type="button"
-            className="btn bg-secondary btn-md text-light"
-            data-toggle="modal"
-            data-target="#AddForm"
-          >
-            <FeatherIcon icon="plus" size="18" className={Classes.Icon} />
-            New Form
-          </button>
-          <div className={`row ${Classes.Section}`}>
-            <div className={`shadow ${Classes.BankForm}`}>
-              <div className={Classes.VerticalAlign}> Dormant Account</div>
-            </div>
-          </div>
+
+          {this.resultToRender()}
+
           <NewForm
+            selectRef={this.selectRef}
             workspaces={this.props.workspaces}
             workspaceSelected={this.state.newForm.workspace}
             formName={this.state.newForm.name}
@@ -56,3 +66,22 @@ export default class Forms extends Component {
     );
   }
 }
+
+const mapStateToProps = state => {
+  return {
+    workspaces: state.workspace.all,
+    loading: state.app.loading,
+    all: state.form.all
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    fetchForms: workspaceId => dispatch(fetchForms(workspaceId))
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Forms);

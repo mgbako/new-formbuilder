@@ -1,9 +1,9 @@
 import Responses from "../../components/Responses/Responses";
 import "bootstrap-daterangepicker/daterangepicker.css";
 import { Private } from "../../hoc/Layouts/Private";
+import { all } from "../../store/actions";
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { all } from "../../store/actions";
 
 class Dashboard extends Component {
   componentDidMount() {

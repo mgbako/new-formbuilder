@@ -1,12 +1,21 @@
 import { NewWorkspace } from "../../components/Workspaces/NewWorkspace";
+import { WorkspaceList } from "../../components/WorkspaceList";
+import { Preloader } from "../../components/UI/Preloader";
+import { fetchWorkspaces } from "../../store/actions";
 import { Private } from "../../hoc/Layouts/Private";
-import FeatherIcon from "feather-icons-react";
 import React, { Component } from "react";
-import Classes from "./Workspaces.css";
-
-export default class Workspaces extends Component {
+import { connect } from "react-redux";
+export class Workspaces extends Component {
   state = {
     newWorkspaceName: ""
+  };
+
+  resultToRender = () => {
+    return this.props.loading && !this.props.all.length ? (
+      <Preloader />
+    ) : (
+      <WorkspaceList workspaces={this.props.all} />
+    );
   };
 
   handleNewWorkspaceNameChange = e => {
@@ -14,6 +23,11 @@ export default class Workspaces extends Component {
       newWorkspaceName: e.target.value
     });
   };
+
+  componentDidMount() {
+    const business = this.props.business;
+    this.props.fetchAll(business.id);
+  }
 
   createNewWorkspace = e => {
     e.preventDefault();
@@ -26,20 +40,7 @@ export default class Workspaces extends Component {
           <div className="space5" />
           <h2 className="text-center">Workspace</h2>
 
-          <button
-            type="button"
-            className="btn bg-secondary btn-md text-light"
-            data-toggle="modal"
-            data-target="#newWorkspace"
-          >
-            <FeatherIcon icon="plus" size="18" className={Classes.Icon} />
-            New Workspace
-          </button>
-          <div className={`row ${Classes.Container}`}>
-            <div className={`shadow ${Classes.FormCategory}`}>
-              <div className={Classes.VerticalAlign}>Accounts (Corporate)</div>
-            </div>
-          </div>
+          {this.resultToRender()}
 
           <NewWorkspace
             name={this.state.newWorkspaceName}
@@ -52,3 +53,22 @@ export default class Workspaces extends Component {
     );
   }
 }
+
+const mapStateToProps = state => {
+  return {
+    business: state.user.business,
+    loading: state.app.loading,
+    all: state.workspace.all
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    fetchAll: businessId => dispatch(fetchWorkspaces(businessId))
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Workspaces);

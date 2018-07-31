@@ -15,7 +15,7 @@ const networkError = error => ({ type: NETWORK_ERROR, error });
 const removeWorkspace = id => ({ type: DELETE_WORKSPACE, id });
 const saveWorkspaces = collection => ({
   type: SAVE_WORKSPACES,
-  data: collection
+  collection
 });
 
 export const fetchWorkspaces = businessId => {

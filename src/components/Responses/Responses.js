@@ -3,7 +3,7 @@ import Response from "./Response/Response";
 import Controls from "./Controls";
 import React, { Component } from "react";
 import AddNote from "./AddNote/AddNote";
-import Aux from "../../hoc/Aux";
+import { Aux } from "../../hoc/Auxilary";
 
 const unread = () => (
   <Response

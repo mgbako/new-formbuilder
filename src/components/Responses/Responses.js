@@ -1,10 +1,10 @@
 import { Preloader } from "../UI/Preloader";
 import Response from "./Response/Response";
+import { Aux } from "../../hoc/Auxilary";
 import React, { Component } from "react";
 import AddNote from "./AddNote/AddNote";
 import Tabs from "../UI/Tabs/Tabs";
 import Tab from "../UI/Tabs/Tab";
-import Aux from "../../hoc/Aux";
 
 class Responses extends Component {
   state = {

@@ -1,10 +1,10 @@
 import { BackDrop } from "../Backdrop/Backdrop";
 import classes from "./Preloader.css";
-import { Aux } from "../../hoc/Auxilary";
+// import { Aux } from "../../hoc/Auxilary";
 import React from "react";
 
 export const Preloader = props => (
-  <Aux>
+  <div>
     <BackDrop click={props.click} show={props.show} />
     <div id="main" className={classes.PreloaderClass}>
       <div className={classes.PreloaderCenter}>
@@ -14,5 +14,5 @@ export const Preloader = props => (
         <span />
       </div>
     </div>
-  </Aux>
+  </div>
 );

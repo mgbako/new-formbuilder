@@ -1,16 +1,56 @@
 import { Preloader } from "../UI/Preloader";
 import Response from "./Response/Response";
+import Controls from "./Controls";
 import React, { Component } from "react";
 import AddNote from "./AddNote/AddNote";
-import Tabs from "../UI/Tabs/Tabs";
-import Tab from "../UI/Tabs/Tab";
 import Aux from "../../hoc/Aux";
+
+const unread = () => (
+  <Response
+    responses={this.props.pending.result}
+    selectResponse={this.pickResponse}
+  />
+);
+
+const pending = () => (
+  <Response
+    responses={this.props.noted.result}
+    selectResponse={this.pickResponse}
+  />
+);
+
+const processed = () => (
+  <Response
+    responses={this.props.processed.result}
+    selectResponse={this.pickResponse}
+  />
+);
 
 class Responses extends Component {
   state = {
     selectedResponseId: "",
-    note: ""
+    note: "",
+    responseToShow: "unread"
   };
+
+  getResponseToShow = e => {
+    e.preventDefault();
+    this.setState({ responseToShow: e.target.value });
+    console.log(this.state.responseToShow);
+  };
+
+  responseSwitch(responseToShow) {
+    switch (responseToShow) {
+      case "unread":
+        return unread;
+      case "pending":
+        return pending;
+      case "processed":
+        return processed;
+      default:
+        return unread;
+    }
+  }
 
   newNote = e => {
     this.setState({ noteText: e.target.value });
@@ -28,39 +68,18 @@ class Responses extends Component {
     return !this.props.pending.count ? (
       <Preloader />
     ) : (
-      <Tabs>
-        <Tab iconClassName={"Unread"} linkClassName={"custom-link"}>
-          <div className="table-responsive">
-            <Response
-              responses={this.props.pending.result}
-              selectResponse={this.pickResponse}
-            />
-          </div>
-        </Tab>
-        <Tab iconClassName={"Processed"} linkClassName={"custom-link"}>
-          <div className="table-responsive">
-            <Response
-              responses={this.props.processed.result}
-              selectResponse={this.pickResponse}
-            />
-          </div>
-        </Tab>
-        <Tab iconClassName={"Pending"} linkClassName={"custom-link"}>
-          <div className="table-responsive">
-            <Response
-              responses={this.props.noted.result}
-              selectResponse={this.pickResponse}
-            />
-          </div>
-        </Tab>
-      </Tabs>
+      this.responseSwitch(this.state.responseToShow)
     );
   };
 
   render() {
     return (
       <Aux>
-        {this.resultToRender(this.props.pending)}
+        <Controls />
+        <div className="table-responsive">
+          {this.resultToRender(this.props.pending)}
+        </div>
+
         <AddNote newNote={this.newNote} createNode={this.createNote} />
       </Aux>
     );

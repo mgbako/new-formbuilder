@@ -6,6 +6,7 @@ import Team from "../../components/Team/Team";
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { all } from "../../store/actions";
+
 class Dashboard extends Component {
   addUser = e => {
     e.preventDefault();

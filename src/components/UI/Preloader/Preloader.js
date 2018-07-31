@@ -1,6 +1,6 @@
 import { BackDrop } from "../Backdrop/Backdrop";
 import classes from "./Preloader.css";
-import Aux from "../../../hoc/Aux";
+import { Aux } from "../../../hoc/Auxilary";
 import React from "react";
 
 export const Preloader = props => (

@@ -2,7 +2,6 @@ import Responses from "../../components/Responses/Responses";
 import "bootstrap-daterangepicker/daterangepicker.css";
 import { Private } from "../../hoc/Layouts/Private";
 import { SwypPartnerApi } from "../../core/api";
-import Team from "../../components/Team/Team";
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { all } from "../../store/actions";
@@ -51,7 +50,6 @@ class Dashboard extends Component {
           />
           <div className="space10" />
         </div>
-        {/* <Team /> */}
       </Private>
     );
   }

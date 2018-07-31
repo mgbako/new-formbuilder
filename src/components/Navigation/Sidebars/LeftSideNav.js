@@ -1,10 +1,11 @@
 import FeatherIcon from "feather-icons-react";
 import { Link } from "react-router-dom";
 import React from "react";
+import Classes from "./Sidebar.css";
 
 export const LeftSideNav = props => (
-  <nav className="col-md-2 d-none d-md-block bg-light sidebar">
-    <div className="sidebar-sticky">
+  <nav className={`col-md-2 d-none d-md-block bg-light ${Classes.Sidebar}`}>
+    <div className={Classes.StickySidebar}>
       <ul className="nav flex-column">
         <li className="nav-item">
           <Link to="/" className="nav-link active" href="#">
@@ -31,12 +32,7 @@ export const LeftSideNav = props => (
             Overview
           </Link>
         </li>
-        <li className="nav-item">
-          <Link to="forms" className="nav-link">
-            <FeatherIcon icon="file-text" size="24" className="icon" />
-            Forms
-          </Link>
-        </li>
+
         <li className="nav-item">
           <Link to="/" className="nav-link">
             <FeatherIcon icon="file-text" size="24" className="icon" />

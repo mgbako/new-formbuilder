@@ -1,6 +1,4 @@
 import React from "react";
-import FeatherIcon from "feather-icons-react";
-import DateRangePicker from "react-bootstrap-daterangepicker";
 
 const Controls = props => (
   <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
@@ -35,11 +33,11 @@ const Controls = props => (
         <option>Last 7 days</option>
         <option>Last 30 days</option>
       </select>
-      <DateRangePicker startDate="7/7/2018" endDate="8/7/2018">
+      {/* <DateRangePicker startDate="7/7/2018" endDate="8/7/2018">
         <button className="btn btn-sm btn-outline-secondary">
           <FeatherIcon icon="calendar" size="18" className="icon" />
         </button>
-      </DateRangePicker>
+      </DateRangePicker> */}
     </div>
   </div>
 );

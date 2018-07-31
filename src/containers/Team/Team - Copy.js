@@ -48,7 +48,6 @@ class Team extends Component {
             toggleCreateMember={this.toggleCreateMember}
             setNewMemberDetail={this.setNewUserDetails}
             createMember={this.createMember}
-            emailUser={this.emailUser}
           />
           <div className="space10" />
         </div>

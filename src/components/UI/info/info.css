@@ -1,0 +1,11 @@
+.SectionTop {
+  text-align: center;
+  position: relative;
+  min-height: 70vh;
+}
+
+.SectionMiddle {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}

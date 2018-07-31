@@ -1,7 +1,7 @@
 import ImagePlaceholder from "../../../img/placeholder-face.png";
 import NewMember from "./NewMember/NewMember";
 import FeatherIcon from "feather-icons-react";
-import Aux from "../../../hoc/Aux";
+import { Aux } from "../../../hoc/Auxilary";
 import React from "react";
 
 export default props => (

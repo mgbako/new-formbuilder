@@ -1,9 +1,15 @@
+import classes from "./FormSettings.css";
 import React from "react";
 
 export const FormSetting = props => (
-  <div className="col-sm-4 form-height" id="forms">
+  <div className={classes.FormSettings} id="forms">
     <div className="collection" id="kiki">
-      {props.inputs.map(input => <div> {input.questionElement} </div>)}
+      {props.inputs.map(input => (
+        <div key={input.id} className={classes.Input}>
+          {" "}
+          {input.questionElement}{" "}
+        </div>
+      ))}
     </div>
   </div>
 );

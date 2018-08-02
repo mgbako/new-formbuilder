@@ -8,7 +8,7 @@ import {
 
 const initialState = {
   all: [],
-  newForm: null
+  newForm: []
 };
 export const form = (state = initialState, action) => {
   switch (action.type) {

@@ -21,7 +21,7 @@ export const loginUser = loginDetails => {
         if (err.response) {
           const error = err.response.data;
           dispatch(stopNetworkRequest());
-          dispatch(setNotificationMessage(error.details, error.type, "error"));
+          dispatch(setNotificationMessage(error.details, "error"));
         }
         dispatch(networkError(err));
         dispatch(setNotificationMessage("Bad Network", "error"));
@@ -41,7 +41,7 @@ export const registerBusiness = details => {
         if (err.response) {
           const error = err.response.data;
           dispatch(stopNetworkRequest());
-          dispatch(setNotificationMessage(error.details, error.type, "error"));
+          dispatch(setNotificationMessage(error.details, "error"));
         }
         dispatch(networkError(err));
         dispatch(setNotificationMessage("Bad Network", "error"));

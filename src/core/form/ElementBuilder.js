@@ -15,7 +15,7 @@ export default class ElementBuilder {
         break;
 
       case "longText":
-        formElement = makeFormInput("h3");
+        formElement = makeFormInput("textarea");
         break;
 
       case "email":

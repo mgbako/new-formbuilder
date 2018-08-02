@@ -1,22 +1,18 @@
+import { preserveNewForm, removeFormElement } from "../../store/actions";
 import ElementTransformer from "../../core/form/ElementTransformer";
+import { FormControls } from "../../components/Forms/FormControls";
 import { FormDisplay } from "../../components/Forms/FormDisplay";
 import { FormOptions } from "../../components/Forms/FormOptions";
 import { FormSetting } from "../../components/Forms/FormSetting";
 import ElementBuilder from "../../core/form/ElementBuilder";
 import { Private } from "../../hoc/Layouts/Private";
 import React, { Component } from "react";
-import Classes from "./FormBuilder.css";
+import classes from "./FormBuilder.css";
+import { connect } from "react-redux";
 
-export default class FormBuilder extends Component {
+class FormBuilder extends Component {
   state = {
-    formInputs: [
-      {
-        questionElement: {},
-        formElement: {},
-        description: "",
-        id: ""
-      }
-    ],
+    formInputs: [],
     activeFont: "Open Sans",
     showFormSubmit: false,
     font_size: "13px"
@@ -32,14 +28,16 @@ export default class FormBuilder extends Component {
 
   collectQuestion = e => {
     const id = e.target.id;
+
     const inputs = this.state.formInputs;
     const inputIndex = inputs.findIndex(input => input.id === id);
+
     const inputToTransform = { ...inputs[inputIndex] };
     const transformedInput = ElementTransformer(
       inputToTransform,
       e.target.value
     );
-
+    console.log(transformedInput);
     inputs[inputIndex] = transformedInput;
     this.setState({ formInputs: inputs });
   };
@@ -51,13 +49,13 @@ export default class FormBuilder extends Component {
     );
     const inputs = [...this.state.formInputs];
     const input = { id, describe, questionElement, formElement };
-
     inputs.push(input);
     this.setState({ formInputs: inputs });
   };
 
   previewForm = e => {
-    console.log("previewing form");
+    this.props.preserveForm(this.state.formInputs);
+    this.props.history.push("/preview");
   };
 
   createForm = () => {
@@ -71,41 +69,33 @@ export default class FormBuilder extends Component {
     };
     return (
       <Private>
-        <div className="col-md-9 ml-sm-auto col-lg-10 px-4">
-          <div className="space5" />
-          <h2 className="text-center">Forms </h2>
-
-          <div className={Classes.TopMenu}>
-            <button
-              className="btn btn-secondary float-right"
-              type="button"
-              onClick={this.previewForm}
-            >
-              preview
-            </button>
-            <button
-              className="btn btn-info float-right"
-              type="button"
-              onClick={this.saveForm}
-            >
-              Save
-            </button>
-          </div>
-          <div className={`row ${Classes.Section}`}>
+        <FormControls create={this.createForm} preview={this.previewForm} />
+        <div>
+          <div className={` ${classes.FormBuilder}`}>
             <FormOptions
               setFontSize={this.handleFontSizeChange}
               prepareElement={this.setupElement}
               changeFont={this.handleFontChange}
             />
-            {/* <FormSetting inputs={this.state.formInputs} /> */}
-            {/* <FormDisplay
-              showSubmit={this.state.showFormSubmit}
+            <FormSetting inputs={this.state.formInputs} />
+            <FormDisplay
               style={displayStyle}
+              showSubmit={this.state.showFormSubmit}
               inputs={this.state.formInputs}
-            /> */}
+            />
           </div>
         </div>
       </Private>
     );
   }
 }
+
+const mapDispatchToProps = dispatch => {
+  return {
+    preserveForm: form => dispatch(preserveNewForm(form))
+  };
+};
+export default connect(
+  null,
+  mapDispatchToProps
+)(FormBuilder);

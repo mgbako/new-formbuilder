@@ -1,14 +1,15 @@
-import React from "react";
+import classes from "./FormDisplay.css";
 
+import React from "react";
 export const FormDisplay = props => (
-  <div className="col-sm-5">
+  <div className={`col-sm-5 ${classes.Form}`}>
     <div className="collection">
       <form id="form" style={props.style}>
-        {props.input.map(input => (
-          <div>
+        {props.inputs.map(input => (
+          <div key={input.id}>
             <div> {input.description}</div>
 
-            <div> {input.formElement}</div>
+            <div className={classes.Input}> {input.formElement}</div>
           </div>
         ))}
         {props.showSubmit ? (

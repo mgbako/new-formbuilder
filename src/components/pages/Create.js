@@ -5,7 +5,6 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import Display from "./Display";
 import axios from "axios";
-import FormBuilder from "../../core/FormBuilder";
 
 let uniqueId = 1;
 

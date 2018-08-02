@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import classes from "./Header.css";
 
 class Header extends Component {
   logOut() {
@@ -10,7 +11,11 @@ class Header extends Component {
     let logged = sessionStorage.getItem("token");
 
     return (
-      <div className="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 border-bottom box-shadow">
+      <div
+        className={`d-flex flex-column flex-md-row align-items-center p-3 px-md-4 border-bottom box-shadow ${
+          classes.Header
+        }`}
+      >
         <h5 className="my-0 mr-md-auto font-weight-bold Header-logo">
           <Link to="/dashboard">SWYP</Link>
         </h5>

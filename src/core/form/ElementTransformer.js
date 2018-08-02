@@ -7,18 +7,20 @@ export default (input, inputTitle) => {
 
   switch (typeOfElement) {
     case "input":
-      elementProperties.name = inputTitle.toLowerCase();
-      newElement = <input {...elementProperties} />;
+      newElement = (
+        <input {...elementProperties} name={inputTitle.toLowerCase()} />
+      );
       break;
     case "textarea":
-      elementProperties.name = inputTitle.toLowerCase();
-      newElement = <textarea {...elementProperties} />;
+      newElement = (
+        <textarea {...elementProperties} name={inputTitle.toLowerCase()} />
+      );
       break;
 
     default:
       newElement = input.formElement;
   }
-  input.label = inputTitle;
-  input.displayInputElement = newElement;
+  input.description = inputTitle;
+  input.formElement = newElement;
   return input;
 };

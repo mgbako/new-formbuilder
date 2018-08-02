@@ -1,11 +1,11 @@
 import { LeftSideNav } from "../../../components/Navigation/Sidebars";
 import React from "react";
-import Classes from "./Private.css";
+import classes from "./Private.css";
 
 export const Private = props => (
-  <main id="main" className={`row ${Classes.Row}`}>
+  <main className={`${classes.Row}`}>
     <LeftSideNav />
 
-    {props.children}
+    <div className={classes.Content}>{props.children}</div>
   </main>
 );

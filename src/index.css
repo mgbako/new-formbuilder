@@ -286,3 +286,9 @@ a.tab-link.custom-link {
 a.tab-link.custom-link.active {
   background: #969696;
 }
+
+.nav-link {
+  display: flex;
+  padding: 0.5rem 1rem;
+  align-items: center;
+}

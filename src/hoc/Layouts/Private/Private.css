@@ -4,9 +4,15 @@
   width: 100%;
   display: flex;
   flex-direction: row;
+  height: 100%;
 }
 
 .Content {
-  width: 90%;
-  flex-grow: 10;
+  width: 83%;
+  /* flex-grow: 10; */
+  float: right;
+  position: absolute;
+  right: 0;
+  margin-bottom: 70px;
+  margin-top: 80px;
 }
